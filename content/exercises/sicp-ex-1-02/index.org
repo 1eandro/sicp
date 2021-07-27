@@ -1,0 +1,68 @@
+#+TITLE: Sicp Ex 1.02
+
+#+DATE: 2020-10-14
+
+So getting to the matter: This the second exercise in SICP. It's
+basically change mathematical notation to prefix.
+
+* Question
+  :PROPERTIES:
+  :CUSTOM_ID: question
+  :END:
+
+*Exercise 1.2:* Translate the following expression into prefix form.
+
+$$\frac{5 + 4 + (2 - (3 - (6 + \frac{4}{5})))}{3(6 - 2)(2 - 7)}$$
+
+* My thoughts
+  :PROPERTIES:
+  :CUSTOM_ID: my-thoughts
+  :END:
+
+Like I mentioned before, basically, change mathematical notation to
+prefix.
+
+* The Answer
+  :PROPERTIES:
+  :CUSTOM_ID: the-answer
+  :END:
+
+The first thing that happens is the division. So lets start with that:
+
+#+BEGIN_SRC scheme
+  (/ numerator denominator)
+#+END_SRC
+
+Let's continue with what happens in the numerator:
+
+That is 5 + 4 + parentheses. So our equation becomes:
+
+#+BEGIN_SRC scheme
+  (/ (+ 5 4 ()) denominator)
+#+END_SRC
+
+Now what happens in the brackets? 2 - parentheses\\
+This becomes:
+
+#+BEGIN_SRC scheme
+  (/ (+ 5 4 (- 2 ()))denominator)
+#+END_SRC
+
+Continuing with this cycle, we soon get:
+
+#+BEGIN_SRC scheme
+  (/ (+ 5 4 (- 2 (- 3 (+ 6 (/ 4 5))))) denominator)
+#+END_SRC
+
+Doing the same for the denominator, we get:
+
+#+BEGIN_SRC scheme
+  (/ (+ 5 4 (- 2 (- 3 (+ 6 (/ 4 5)))))(* 3 (- 6 2)(- 2 7)))
+#+END_SRC
+
+And that's it! Now that's it! Remember though that you will to have
+follow [[https://en.wikipedia.org/wiki/Order_of_operations][BODMAS]]
+while translating, and BODMAS is a mess! Maybe we should all switch to
+Prefix or
+[[https://en.wikipedia.org/wiki/Reverse_Polish_notation][RPN]]? Tell us
+what you think in the comments below!

@@ -1,0 +1,123 @@
+#+TITLE: Sicp Ex 1.17
+
+#+DATE: 2020-11-23
+
+This is the 17 exercise of Sicp and I am posting after a long time. I
+hope that this question will be interesting.
+
+* The Question
+  :PROPERTIES:
+  :CUSTOM_ID: the-question
+  :END:
+
+*Exercise 1.17:* The exponentiation algorithms in this section are based
+on performing exponentiation by means of repeated multiplication. In a
+similar way, one can perform integer multiplication by means of repeated
+addition. The following multiplication procedure (in which it is assumed
+that our language can only add, not multiply) is analogous to the expt
+procedure:
+
+#+BEGIN_SRC scheme
+  (define (* a b)
+    (if (= b 0)
+        0
+        (+ a (* a (- b 1)))))
+#+END_SRC
+
+This algorithm takes a number of steps that is linear to=b=. Now suppse
+we include with addition, operations =double=, which doubles and integer
+and =halve= which divides an (even) integer by 2. Using these, design a
+multiplication procedure analogous to =fast-expt= that usess a
+logarithmic number of steps.
+
+* My Thoughts
+  :PROPERTIES:
+  :CUSTOM_ID: my-thoughts
+  :END:
+
+This question is quite like the
+[[https://benjamin-philip.github.io/sicp/sicp-ex-1-17][previous
+exercise's]] recursive example. Here all we are doing is replacing
+exponentiation with multiplication, multiplication with addition, and
+division with subtraction.
+
+** The program structure
+   :PROPERTIES:
+   :CUSTOM_ID: the-program-structure
+   :END:
+
+We need to make an recursive procedure to to multiply logarithmicly.
+Like the =fast-expt= in the example.
+
+Let's take the number to multiplicant as =x= and the multiplier and =n=.
+We now know few things:
+
+- If =n= is even, double =x= and halve =n=
+- If =n= is odd, add =x= and subtract 1 from =n=
+- If =n= is zero, return *0* and not 1.
+
+Let's make a recursive procedure from that.
+
+* The Answer
+  :PROPERTIES:
+  :CUSTOM_ID: the-answer
+  :END:
+
+This is how we check if even:
+
+#+BEGIN_SRC scheme
+  (define (even? n)
+    (= (remainder n 2) 0))
+#+END_SRC
+
+This is how we double:
+
+#+BEGIN_SRC scheme
+  (define (double n)
+    (+ n n))
+#+END_SRC
+
+This is how we halve:
+
+#+BEGIN_SRC scheme
+  (define (halve n)
+    (/ n 2))
+#+END_SRC
+
+This is the recursive =fast-mult=:
+
+#+BEGIN_SRC scheme
+  (define fast-mult (b n)
+    (cond ((= n 0) 0)
+      ((even? n) (double (fast-mult b (halve n))))
+      (else (+ b (fast-mult b (- n 1))))))
+#+END_SRC
+
+And here's the entire thing:
+
+#+BEGIN_SRC scheme
+  (define (even? n)
+    (= (remainder n 2) 0))
+
+  (define (double n)
+    (+ n n))
+
+  (define (halve n)
+    (/ n 2))
+
+  (define (fast-mult b n)
+    (cond ((= n 0) 0)
+      ((even? n) (double (fast-mult b (halve n))))
+      (else (+ b (fast-mult b (- n 1))))))
+#+END_SRC
+
+And upon testing $ 2 \times 8 $:
+
+#+BEGIN_EXAMPLE
+  1 ]=> (fast-mult 2 8)
+
+  ;Value: 16
+#+END_EXAMPLE
+
+That's it. A really simple procedure right? Tell us your opinion in the
+commnets below.

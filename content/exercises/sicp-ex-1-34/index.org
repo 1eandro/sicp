@@ -1,0 +1,56 @@
+#+TITLE: Sicp Ex 1.34
+
+#+DATE: 2021-01-29
+
+This is the $34^{th}$ Exercise in Sicp, Here, we explain what happens
+when we we try to use a number as a procedure.
+
+* The Question
+  :PROPERTIES:
+  :CUSTOM_ID: the-question
+  :END:
+
+*Exercise 1.34:* Suppose we define the procedure
+
+#+BEGIN_SRC scheme
+  (define (f g)
+    (g 2))
+#+END_SRC
+
+Then we have
+
+#+BEGIN_SRC scheme
+  (f square)
+  4
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+  (f (lamda (z) (* z (+ z 1))))
+  6
+#+END_EXAMPLE
+
+What happens is we (perversely) ask the interpreter to evaluate the
+combination =(f f)= ? Explain.
+
+* The Answer
+  :PROPERTIES:
+  :CUSTOM_ID: the-answer
+  :END:
+
+The function =f=, applies the parameter =g= as a function. It passes as
+the parameter 2.
+
+Thus when we passed =square= as the parameter =(square 2)= is evaluated.
+
+Let's use the substitution model and find out what happens when we pass
+the =f= as the parameter to itself:
+
+#+BEGIN_SRC scheme
+  (f f)
+  (f 2)
+  (2 2)
+#+END_SRC
+
+As you can see, we finally try to use the integer 2 as a function. This
+will cause an error. In MIT Scheme at least, it returns the error "The
+object 2 is not applicable".
