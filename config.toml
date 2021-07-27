@@ -1,3 +1,7 @@
-baseURL = "http://example.org/"
+baseURL = "https://bphilip.gitlab.io/sicp/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "Ben's Solutions to Sicp"
+theme = "hyde"
+
+[params]
+  description = "My journey reading Sicp: From learning scheme to building an interpreter."
