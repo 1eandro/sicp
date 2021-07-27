@@ -114,7 +114,6 @@ guess is one:
   (sqrt-iter 1.0 x))
 ```
 
-{: .note-box}
 **Note:** Notice how we pass 1.0 instead of 1
 to sqrt-iter. This so that 1, when divided doesn't 
 become a rational no. (fraction)

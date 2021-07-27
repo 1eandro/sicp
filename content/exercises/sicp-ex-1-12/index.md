@@ -42,7 +42,6 @@ Look at that 6. It is the 3rd element in 4th row.
 We will refer to it in our function like this:
 `(p 2 4)`
 
-{: .note-box}
 **Note:** the 3rd element is reffered as the 
 2nd element as we start counting from zero
 
@@ -97,7 +96,6 @@ To make a row, all we need to do is iterate through the range:
 `0 - n`, append to our list accordingly, and decrease `n` till it
 is zero.
 
-{: .note-box}
 **Note:** Please don't ask me to explain
 the exact syntax, I just found the appropriate functions
 for processing lists by searching for their list.

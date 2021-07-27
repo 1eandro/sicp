@@ -83,7 +83,6 @@ same remainder when divided by $n$. The remainder of a number $a$ when
 divided by $n$ is also reffered to as the *remainder of a modulo n* or
 simply as *a modulo n*.
 
-{: .note-box}
 **Note:** I do not plan to prove this test to you. Just accept it
 and carry on.
 
