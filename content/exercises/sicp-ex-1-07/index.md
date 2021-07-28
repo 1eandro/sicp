@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.7
-date: 2020/10/22
+date:  2020-10-22
 ---
 
 In Ex 1.7, we redefine the `good-enough?` test from

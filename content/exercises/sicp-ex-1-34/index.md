@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.34
-date: 29/1/2021
+date:  2021-01-29
 ---
 
 This is the $34^{th}$ Exercise in Sicp, Here, we explain what happens

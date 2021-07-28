@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.18
-date: 24/11/2020
+date:  2020-11-24
 ---
 
 This is the $18^{th}$ question in Sicp. And it quite similar

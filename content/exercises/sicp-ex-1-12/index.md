@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.12
-date: 2020/10/25
+date:  2020-10-25
 ---
 
 This is the $12^{th}$ exercise in Sicp. In this Exercise,

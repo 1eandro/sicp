@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.31
-date: 21/1/21
+date:  2021-01-21
 ---
 
 This is the $31^{th}$ Exercise from Sicp. Here, we define a procedure

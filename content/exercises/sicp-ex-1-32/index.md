@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.32
-date: 21/1/21
+date:  2021-01-21
 ---
 
 This is the $32^{th}$ exercise from Sicp. Here we create a function

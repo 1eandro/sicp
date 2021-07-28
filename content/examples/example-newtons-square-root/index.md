@@ -1,6 +1,6 @@
 ---
 title: "Example: Square roots by Newton's Method"
-date: 2020/10/20
+date:  2020-10-20
 ---
 
 All the Procedures explained previously were much like

@@ -1,6 +1,6 @@
 ---
 title: Sicp Exercise 1.36
-date: 2/2/2021
+date:  2021-02-02
 ---
 
 This is the $36^{th}$ Exercise from Sicp. Here we modify `fixed-point` so that

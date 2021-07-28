@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.6
-date: 22/10/2020
+date:  2020-10-22
 ---
 
 This the 6th Sicp exercise. This in my opinion is a 

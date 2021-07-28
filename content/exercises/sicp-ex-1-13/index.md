@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.13
-date: 2020/10/27
+date:  2020-10-27
 ---
 
 This is the 13 exercise in Sicp. Here we prove

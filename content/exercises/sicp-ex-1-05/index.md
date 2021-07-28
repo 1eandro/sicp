@@ -1,7 +1,7 @@
 ---
 title: Sicp Ex 1.5
 comments: true
-date: 2020/10/20
+date:  2020-10-20
 tags: [SICP, Scheme, Lisp]
 ---
 

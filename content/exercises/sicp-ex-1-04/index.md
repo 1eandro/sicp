@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.4
-date: 2020/10/20
+date:  2020-10-20
 tags: [Lisp, Scheme, SICP]
 ---
 This the 4th Exercise in SICP

@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.29
-date: 16/1/2021
+date:  2021-01-16
 ---
 This is the $29^{th}$ exercise in Sicp. Here, we a write a procedure
 to compute integrals using (Homer) Simpson's rule. 

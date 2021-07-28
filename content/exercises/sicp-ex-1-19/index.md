@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.19
-date: 24/11/2020
+date:  2020-11-24
 ---
 
 Now, this question is not as easy as the last.

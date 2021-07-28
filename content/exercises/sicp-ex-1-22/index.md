@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.22
-date: 27/11/2020
+date:  2020-11-27
 ---
 
 This the 22nd quesion in Sicp. I feel that this question is much more

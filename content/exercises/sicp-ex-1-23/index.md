@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.23
-date: 30/11/2020
+date:  2020-11-30
 ---
 
 This is the 23rd exercise from Sicp.

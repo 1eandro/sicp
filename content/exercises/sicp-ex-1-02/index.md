@@ -1,7 +1,7 @@
 ---
 title: Sicp Ex 1.2
 layout: post
-date: 2020/10/14
+date:  2020-10-14
 tags: [SICP, Lisp, Scheme]
 ---
 

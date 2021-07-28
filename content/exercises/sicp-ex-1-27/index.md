@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.27
-date: 2/12/2020
+date:  2020-12-02
 ---
 
 This is the 27th question from Sicp. Here we just Run a procedure.

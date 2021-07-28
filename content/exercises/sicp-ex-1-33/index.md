@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.33
-date: 21/1/22
+date:  2022-01-21
 ---
 
 This is the $33^{rd}$ exercise from Sicp. Here, we write an even more

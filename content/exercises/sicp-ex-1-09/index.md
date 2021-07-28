@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.9
-date: 2020/10/22
+date:  2020-10-22
 ---
 
 This is the First question in Section to of

@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.11
-date: 2020/10/25
+date:  2020-10-25
 ---
 
 This is the $11^{th}$ exercise in Sicp.

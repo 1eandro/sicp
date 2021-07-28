@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.21
-date: 26/11/2020
+date:  2020-11-26
 ---
 
 This is the 21 first question from Sicp and I feel this exercise is

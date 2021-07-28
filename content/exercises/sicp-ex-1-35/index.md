@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.35
-date: 2/2/2021
+date:  2021-02-02
 ---
 
 This is the $35^{th}$ exercise from Sicp. Here, we calculate the golden ratio

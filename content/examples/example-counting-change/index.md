@@ -1,6 +1,6 @@
 ---
 title: "Example: Counting Change"
-date: 2020/10/24
+date:  2020-10-24
 ---
 
 In this Example, we write a recursive procedure to calculate

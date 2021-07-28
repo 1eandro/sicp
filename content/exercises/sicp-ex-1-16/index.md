@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.16
-date: 12/11/2020
+date:  2020-11-12
 ---
 
 This is the 16th Question. Here we design and iterative

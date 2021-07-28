@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.30
-date: 20/1/2021
+date:  2021-01-20
 ---
 
 This is the $30^{th}$ Exercise from Sicp. Here, we write an iterative

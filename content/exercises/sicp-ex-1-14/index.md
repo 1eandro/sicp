@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.14
-date: 2020/10/28
+date:  2020-10-28
 ---
 
 This the 14th exercise in Sicp. Here, we draw

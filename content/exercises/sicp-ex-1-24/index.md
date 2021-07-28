@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.24
-date: 1/12/2020
+date:  2020-12-01
 ---
 
 This is the 24th question from Sicp. And yet again, I feel this is a

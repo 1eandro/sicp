@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.20
-date: 26/11/2020
+date:  2020-11-26
 ---
 
 This is the $20^{th}$ question in Sicp. In general I feel that

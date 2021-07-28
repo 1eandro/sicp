@@ -1,6 +1,6 @@
 ---
 title: Example - Testing for Primality
-date: 27/11/2020
+date:  2020-11-27
 ---
 
 This is section describes of methods for checking whether

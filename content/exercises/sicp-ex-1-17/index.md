@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.17
-date: 23/11/2020
+date:  2020-11-23
 ---
 
 This is the 17 exercise of Sicp and I am posting after a long time. I

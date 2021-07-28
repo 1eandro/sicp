@@ -1,6 +1,6 @@
 ---
 title: Sicp Ex 1.10
-date: 2020/10/23
+date:  2020-10-23
 ---
 
 In the 10th exercise, we look at Ackerman's function
