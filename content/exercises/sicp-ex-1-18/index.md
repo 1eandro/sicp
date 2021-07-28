@@ -1,5 +1,5 @@
 ---
-title: Sicp Ex 1.18
+title: Exercise 1.18
 date:  2020-11-24
 ---
 

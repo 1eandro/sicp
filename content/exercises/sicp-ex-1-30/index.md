@@ -1,5 +1,5 @@
 ---
-title: Sicp Ex 1.30
+title: Exercise 1.30
 date:  2021-01-20
 ---
 

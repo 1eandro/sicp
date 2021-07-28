@@ -1,5 +1,5 @@
 ---
-title: Sicp Ex 1.29
+title: Exercise 1.29
 date:  2021-01-16
 ---
 This is the $29^{th}$ exercise in Sicp. Here, we a write a procedure

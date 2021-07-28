@@ -1,5 +1,5 @@
 ---
-title: Sicp Ex 1.33
+title: Exercise 1.33
 date:  2022-01-21
 ---
 

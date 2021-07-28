@@ -1,5 +1,5 @@
 ---
-title: Sicp Exercise 1.36
+title: Exercise 1.36
 date:  2021-02-02
 ---
 

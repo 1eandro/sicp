@@ -1,5 +1,5 @@
 ---
-title: Sicp Ex 1.3
+title: Exercise 1.3
 layout: post
 date:  2020-10-14
 tags: [Sicp, Lisp, Scheme]
