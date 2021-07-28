@@ -10,7 +10,7 @@ we compute pascal's Triangle.
 
 **Exercise 1.12:** The following pattern of numbers is called *Pascals' Triangle.*
 
-![Pascal's Triangle ](/collection-assets/sicp/sicp-ex-1.12/p-tri.gif)
+![Pascal's Triangle ](p-tri.gif)
 
 The numbers at the edge of the triangle are all 1, and each number
 inside the triangle is the sum of the two numbers above it. Write
@@ -36,7 +36,7 @@ In order to compute an element of pascal's triangle, we need
 to be able to say *which* element you are talking about. For
 this we will use a notation based on the vertical and horizontal position.
 
-![Pascal's Triangle](/collection-assets/sicp/sicp-ex-1.12/p-tri-r.gif)
+![Pascal's Triangle](p-tri-r.gif)
 
 Look at that 6. It is the 3rd element in 4th row.
 We will refer to it in our function like this:
