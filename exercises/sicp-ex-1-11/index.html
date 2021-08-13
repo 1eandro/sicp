@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.11 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.11</h1>
+  <time datetime=2020-10-25T00:00:00Z class="post-date">Sun, Oct 25, 2020</time>
+  <p>This is the $11^{th}$ exercise in Sicp.
+Here we write an iterative process and a
+recursive process for the same function.</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.11:</strong> A function <code>f</code> is defined by the rule that $f (n) = n$ if
+n &lt; 3$ and $f (n) = f (n − 1) + 2f (n − 2) + 3f (n − 3)$ if $n ≥ 3$. Write a
+procedure that computes <code>f</code> by means of a recursive process. Write
+a procedure that computes <code>f</code> by means of an iterative process.</p>
+<h1 id="my-thoughts-and-the-answer">My thoughts and the Answer</h1>
+<p>Let&rsquo;s define the recursive process first.
+Since the definition itself is recursive, this
+should be simple:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">f</span> n)
+ (<span style="color:#66d9ef">cond </span>((&lt; n <span style="color:#ae81ff">3</span>) n)
+       ((&gt;= n <span style="color:#ae81ff">3</span>) 
+           (+ (<span style="color:#a6e22e">f</span> (- n <span style="color:#ae81ff">1</span>)) 
+           (* <span style="color:#ae81ff">2</span> (<span style="color:#a6e22e">f</span> (- n <span style="color:#ae81ff">2</span>))) 
+           (* <span style="color:#ae81ff">3</span> (<span style="color:#a6e22e">f</span> (- n <span style="color:#ae81ff">3</span>)))))))
+</code></pre></div><h2 id="writing-the-iterative-process">Writing the iterative process</h2>
+<p>Now that we defined that, we will now have make this process an
+iterative process. This is the difficult bit. We will have to make
+a recursive logic iterative in nature.</p>
+<p>Now what is the definition of this function? (when n is &lt;= 3)</p>
+<blockquote>
+<p>f(n) = f(n-1) + 2f(n-2) + 3f(n -2)</p>
+</blockquote>
+<p>Let&rsquo;s use the substitution model and work this for a few numbers:</p>
+<pre><code>f(0) = 0
+f(1) = 1
+f(2) = 2
+
+f(3) = (f 2) + 2(f 1) + 3(f 0) = 2 + 2 + 0 = 4
+f(4) = (f 3) + 2(f 2) + 3(f 1) = 4 + (2 * 2) + (3 * 1) = 4 + 4 + 3 = 11
+f(5) = (f 4) + 2(f 3) + 3(f 2) = 11 + (2 * 4) + (3 * 2) = 11 + 8 + 6 = 25
+f(6) = (f 5) + 2(f 4) + 3(f 3) = 25 + (2 * 11) + (3 * 4) = 25 + 22 + 12
+
+</code></pre><p>If you look at <code>f(3)</code> all we are doing is multiplying <code>f(1)</code> by 2, <code>f(0)</code> by 3 <code>f(2)</code> by 1
+summing them. When you look at <code>f(4)</code> all we are doing is multiplying <code>f(3)</code> by 1, <code>f(2)</code> by 2
+and <code>f(1)</code> by 3.</p>
+<p>So what we can do is, use 3 variables : a, b, and c to track the value of <code>f(n -1)</code>, <code>f(n - 2)</code>, and
+<code>f(n - 3)</code> respectively. We will use variable <code>n</code> to count. When n is 0, we will return the sum.
+We will also update the values of <code>a</code>, <code>b</code>, <code>c</code> every recursion. Using this description we can make
+a procedure.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">f</span> n)
+  (<span style="color:#66d9ef">if </span>(&lt; n <span style="color:#ae81ff">3</span>)
+      n
+  (<span style="color:#a6e22e">f-iter</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> (- n <span style="color:#ae81ff">3</span>))))
+  
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">f-iter</span> a b c n)
+  (<span style="color:#66d9ef">if </span>(= count <span style="color:#ae81ff">0</span>)
+         (+ a
+         (* <span style="color:#ae81ff">2</span> b)
+         (* <span style="color:#ae81ff">3</span> c))
+    (<span style="color:#a6e22e">f-iter</span> (+ a (* b <span style="color:#ae81ff">2</span>) (* c <span style="color:#ae81ff">3</span>))
+        a b (- n <span style="color:#ae81ff">1</span>))))
+</code></pre></div><p>Now how simple was that?</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

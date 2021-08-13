@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercises &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="https://bphilip.gitlab.io/sicp/exercises/index.xml" rel="alternate" type="application/rss+xml" title="Ben's Solutions to Sicp" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <ul class="posts">
+<li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-35/">Exercise 1.35</a> <time class="pull-right post-list" datetime="2021-02-02T00:00:00Z">Tue, Feb 2, 2021</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-36/">Exercise 1.36</a> <time class="pull-right post-list" datetime="2021-02-02T00:00:00Z">Tue, Feb 2, 2021</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-34/">Exercise 1.34</a> <time class="pull-right post-list" datetime="2021-01-29T00:00:00Z">Fri, Jan 29, 2021</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-31/">Exercise 1.31</a> <time class="pull-right post-list" datetime="2021-01-21T00:00:00Z">Thu, Jan 21, 2021</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-32/">Exercise 1.32</a> <time class="pull-right post-list" datetime="2021-01-21T00:00:00Z">Thu, Jan 21, 2021</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-30/">Exercise 1.30</a> <time class="pull-right post-list" datetime="2021-01-20T00:00:00Z">Wed, Jan 20, 2021</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-29/">Exercise 1.29</a> <time class="pull-right post-list" datetime="2021-01-16T00:00:00Z">Sat, Jan 16, 2021</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-26/">Exercise 1.26</a> <time class="pull-right post-list" datetime="2020-12-02T00:00:00Z">Wed, Dec 2, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-27/">Exercise 1.27</a> <time class="pull-right post-list" datetime="2020-12-02T00:00:00Z">Wed, Dec 2, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-28/">Exercise 1.28</a> <time class="pull-right post-list" datetime="2020-12-02T00:00:00Z">Wed, Dec 2, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-24/">Exercise 1.24</a> <time class="pull-right post-list" datetime="2020-12-01T00:00:00Z">Tue, Dec 1, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-25/">Exercise 1.25</a> <time class="pull-right post-list" datetime="2020-12-01T00:00:00Z">Tue, Dec 1, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-23/">Exercise 1.23</a> <time class="pull-right post-list" datetime="2020-11-30T00:00:00Z">Mon, Nov 30, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-22/">Exercise 1.22</a> <time class="pull-right post-list" datetime="2020-11-27T00:00:00Z">Fri, Nov 27, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-20/">Exercise 1.20</a> <time class="pull-right post-list" datetime="2020-11-26T00:00:00Z">Thu, Nov 26, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-21/">Exercise 1.21</a> <time class="pull-right post-list" datetime="2020-11-26T00:00:00Z">Thu, Nov 26, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-18/">Exercise 1.18</a> <time class="pull-right post-list" datetime="2020-11-24T00:00:00Z">Tue, Nov 24, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-19/">Exercise 1.19</a> <time class="pull-right post-list" datetime="2020-11-24T00:00:00Z">Tue, Nov 24, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-17/">Exercise 1.17</a> <time class="pull-right post-list" datetime="2020-11-23T00:00:00Z">Mon, Nov 23, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-16/">Exercise 1.16</a> <time class="pull-right post-list" datetime="2020-11-12T00:00:00Z">Thu, Nov 12, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-14/">Exercise 1.14</a> <time class="pull-right post-list" datetime="2020-10-28T00:00:00Z">Wed, Oct 28, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-13/">Exercise 1.13</a> <time class="pull-right post-list" datetime="2020-10-27T00:00:00Z">Tue, Oct 27, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-11/">Exercise 1.11</a> <time class="pull-right post-list" datetime="2020-10-25T00:00:00Z">Sun, Oct 25, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-12/">Exercise 1.12</a> <time class="pull-right post-list" datetime="2020-10-25T00:00:00Z">Sun, Oct 25, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-10/">Exercise 1.10</a> <time class="pull-right post-list" datetime="2020-10-23T00:00:00Z">Fri, Oct 23, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-06/">Exercise 1.6</a> <time class="pull-right post-list" datetime="2020-10-22T00:00:00Z">Thu, Oct 22, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-07/">Exercise 1.7</a> <time class="pull-right post-list" datetime="2020-10-22T00:00:00Z">Thu, Oct 22, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-08/">Exercise 1.8</a> <time class="pull-right post-list" datetime="2020-10-22T00:00:00Z">Thu, Oct 22, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-09/">Exercise 1.9</a> <time class="pull-right post-list" datetime="2020-10-22T00:00:00Z">Thu, Oct 22, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-04/">Exercise 1.4</a> <time class="pull-right post-list" datetime="2020-10-20T00:00:00Z">Tue, Oct 20, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-05/">Exercise 1.5</a> <time class="pull-right post-list" datetime="2020-10-20T00:00:00Z">Tue, Oct 20, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-02/">Exercise 1.2</a> <time class="pull-right post-list" datetime="2020-10-14T00:00:00Z">Wed, Oct 14, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-03/">Exercise 1.3</a> <time class="pull-right post-list" datetime="2020-10-14T00:00:00Z">Wed, Oct 14, 2020</time></span>
+  </li><li>
+    <span><a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-01/">Exercise 1.1</a> <time class="pull-right post-list" datetime="2020-10-13T00:00:00Z">Tue, Oct 13, 2020</time></span>
+  </li>
+</ul>
+      </main>
+
+      
+      
+      
+  </body>
+</html>

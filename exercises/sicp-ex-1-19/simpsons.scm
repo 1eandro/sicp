@@ -1,0 +1,18 @@
+(define (sum term a next b)
+  (if (> a b)
+      0
+      (+ (term a)
+         (sum term (next a) next b))))
+		 
+(define (simpsons f a b n)
+  (define h (/ (- b a) n))
+  (define (find-element k)
+    (define (find-y)
+    (f (+ a (* k h))))
+    (* (cond ((or (= k 0) (= k n)) 1)
+	     ((odd? k) 4)
+	     (else 2))
+       (find-y)))
+  (define (inc n)
+    (+ n 1))
+  (/ (* h (sum find-element 0 inc n)) 3))

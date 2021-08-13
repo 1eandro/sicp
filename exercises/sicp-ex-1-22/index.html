@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.22 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.22</h1>
+  <time datetime=2020-11-27T00:00:00Z class="post-date">Fri, Nov 27, 2020</time>
+  <p>This the 22nd quesion in Sicp. I feel that this question is much more
+interesting than lot of the others, because we finally get play with
+the <code>runtime</code> ! (I wonder how you interfer with memory management.)</p>
+<h1 id="the-quesion">The Quesion</h1>
+<p><strong>Exercise 1.22:</strong>  Most Lisp implementations include a primitive
+called <code>runtime</code> that returns an integer that specifies the amount
+of time the system has been running (measured, for example,
+in microseconds). The following timed-prime-test procedure,
+when called with an integer <code>n</code> , prints <code>n</code> and checks to see if <code>n</code> is
+prime. If <code>n</code> is prime, the procedure prints three asterisks followed
+by the amount of time used in performing the test.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">timed-prime-test</span> n)
+  (<span style="color:#a6e22e">newline</span>)
+  (display n)
+  (<span style="color:#a6e22e">start-prime-test</span> n (<span style="color:#a6e22e">runtime</span>)))
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">start-prime-test</span> n start-time)
+  (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">prime?</span> n)
+      (<span style="color:#a6e22e">report-prime</span> (- (<span style="color:#a6e22e">runtime</span>) start-time))))
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">report-prime</span> elapsed-time)
+  (display <span style="color:#e6db74">&#34; *** &#34;</span>)
+  (display elapsed-time))
+</code></pre></div><p>Using this procedure, write a procedure <code>search-for-primes</code> that
+checks the primality of consecutive odd integers in a specified
+range. Use your procedure to find the three smallest primes larger
+than 1000; larger than 10,000; larger than 100,000; larger than
+1,000,000. Note the time needed to test each prime. Since the
+p testing algorithm has order of growth of $\theta(\sqrt[]{n})$, you
+should expect that testing for primes around 10,000 should take about
+$\sqrt[]{10}$ times as long as testing for primes around 1000. Do your
+timing data bear this out? How well do the data for 100,000 and
+1,000,000 support the $\theta(\sqrt[]{n})$ prediction? Is your result
+compatible with the notion that programs on your machine run in time
+proportional to the number of steps required for the computation?</p>
+<h1 id="my-thoughts">My Thoughts</h1>
+<p>(&ndash; awe struck &ndash;) They wrote the runtime code for us ? Oh, well.</p>
+<p>Now, getting to the matter, we need to do the following things:</p>
+<ul>
+<li>
+<p>Write a procedure <code>search-for-primes</code> that checks the primality of
+consecutive odd integers in a specified range.</p>
+</li>
+<li>
+<p>We need to use <code>search-for-primes</code> to find the three smallest primes
+larger than 1000; larger than 10,000; larger than 100,000; larger
+than 1,000,000</p>
+</li>
+<li>
+<p>We need to use the data we got for 100,000 and 1,000,000 and support
+our claim the the order of growth is root n.</p>
+</li>
+<li>
+<p>We need to decide if our result is compatible with the notion that
+that programs run in time proportional to the number of steps
+required for the computation on my machine (Which is WSL)</p>
+</li>
+</ul>
+<h1 id="the-answer">The Answer</h1>
+<p>I have decided to spilt the answer to 4 parts, addressing the 4 points:</p>
+<h2 id="writing-the-procedure">Writing the procedure</h2>
+<p>So we need to iterate between the order numbers of a given <em>range</em> .
+But what exactly is a <em>range</em> ?</p>
+<h3 id="what-exactly-is-a-range-">What exactly is a range ?</h3>
+<p>A range is computed knowing the following:</p>
+<ol>
+<li>The first number</li>
+<li>The Last number</li>
+<li>The increment value</li>
+</ol>
+<p>Typically (atleast in python) there&rsquo;s a function to compute an iterable of
+numbers. (I am not sure if <code>range</code> class can be treated like a list.)
+What happens is that the <code>range</code> does the following (something like this):</p>
+<ol>
+<li>Take the last number (in the beggining this is the first number)</li>
+<li>Increment it by the increment value and append it to the list (Or
+something like that)</li>
+<li>If this new number incremented in less than the last number loop</li>
+</ol>
+<p>The problem in our case is that we need to compute all the consecutive
+odd integers. So we can&rsquo;t specify an increment value. Also, we always
+start from the number 1. So the only number we need to supply is the
+last value.</p>
+<p>The defaults are :</p>
+<ol>
+<li>first number - 1</li>
+<li>increment value - 2</li>
+</ol>
+<h3 id="implementing-a-range">Implementing a range</h3>
+<p>So we now have a vague Idea of what we should do. In lisp, we do
+something like this (the <code>timed-prime-test</code> function is imperative
+like so I took the liberty of something imperative):</p>
+<p><code>cond</code> the current value is less than the last value, do x.
+<code>cond</code> the current value incremented is less than the last value, call
+this function again.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">range</span> cur-val last-val)
+  (<span style="color:#66d9ef">cond </span>((&lt; cur-val last-val)
+	 (display cur-val))) <span style="color:#75715e">;; displaying cur-val instead of do x</span>
+  (<span style="color:#66d9ef">cond </span>((&lt; (+ cur-val <span style="color:#ae81ff">2</span>) last-val)
+	(<span style="color:#a6e22e">range</span> (+ cur-val <span style="color:#ae81ff">2</span>) last-val))))
+</code></pre></div><p>Checking this in Geiser gives the following :</p>
+<pre><code>(range 1 10)
+13579
+;Unspecified return value
+</code></pre><p>Showing that it works.</p>
+<h3 id="searching-for-primes-in-a-range">Searching for primes in a range</h3>
+<p>We now need to take use this range function and implement it to use
+<code>timed-prime-test</code>. Let&rsquo;s just quickly check if <code>test-prime</code> works:</p>
+<pre><code>(timed-prime-test 73)
+
+73
+;Unbound variable: prime?
+;To continue, call RESTART with an option number:
+; (RESTART 3) =&gt; Specify a value to use instead of prime?.
+; (RESTART 2) =&gt; Define prime? to a given value.
+; (RESTART 1) =&gt; Return to read-eval-print level 1.
+
+</code></pre><p>Let&rsquo;s quickly define <code>prime?</code> and try again.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">prime?</span> n)
+  (= n (<span style="color:#a6e22e">smallest-divisor</span> n)))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">smallest-divisor</span> n)
+  (<span style="color:#a6e22e">find-divisor</span> n <span style="color:#ae81ff">2</span>))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">find-divisor</span> n test-divisor)
+  (<span style="color:#66d9ef">cond </span>((&gt; (<span style="color:#a6e22e">square</span> test-divisor) n) n)
+	((<span style="color:#a6e22e">divides?</span> test-divisor n) test-divisor)
+	(<span style="color:#66d9ef">else </span>(<span style="color:#a6e22e">find-divisor</span> n (+ test-divisor <span style="color:#ae81ff">1</span>)))))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">divides?</span> a b)
+  (= (remainder b a) <span style="color:#ae81ff">0</span>))
+  
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">timed-prime-test</span> n)
+  (<span style="color:#a6e22e">newline</span>)
+  (display n)
+  (<span style="color:#a6e22e">start-prime-test</span> n (<span style="color:#a6e22e">runtime</span>)))
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">start-prime-test</span> n start-time)
+  (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">prime?</span> n)
+      (<span style="color:#a6e22e">report-prime</span> (- (<span style="color:#a6e22e">runtime</span>) start-time))))
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">report-prime</span> elapsed-time)
+  (display <span style="color:#e6db74">&#34; *** &#34;</span>)
+  (display elapsed-time))
+
+</code></pre></div><p>This what I get:</p>
+<pre><code>(timed-prime-test 100271)
+
+100271 *** 0.
+;Unspecified return value
+</code></pre><p>So I assume is works. We might need a larger prime number in-order to
+check time though.</p>
+<p>Now let&rsquo;s change <code>range</code> to <code>prime-range</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">prime-range</span> cur-val last-val)
+  (<span style="color:#66d9ef">cond </span>((&lt; cur-val last-val)
+	 (<span style="color:#a6e22e">timed-prime-test</span> cur-val)))
+  (<span style="color:#66d9ef">cond </span>((&lt; (+ cur-val <span style="color:#ae81ff">2</span>) last-val)
+	(<span style="color:#a6e22e">prime-range</span> (+ cur-val <span style="color:#ae81ff">2</span>) last-val))))
+</code></pre></div><p>Now, we can define <code>search-for-primes</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">search-for-primes</span> range)
+  (<span style="color:#a6e22e">prime-range</span> <span style="color:#ae81ff">1</span> range))
+</code></pre></div><p>Now, let&rsquo;s test it.</p>
+<pre><code>(search-for-primes 100)
+1 *** 0.
+3 *** 0.
+5 *** 0.
+7 *** 0.
+9
+11 *** 0.
+13 *** 0.
+15
+17 *** 0.
+19 *** 0.
+21
+23 *** 0.
+25
+27
+29 *** 0.
+31 *** 0.
+33
+35
+37 *** 0.
+39
+41 *** 0.
+43 *** 0.
+45
+47 *** 0.
+49
+51
+53 *** 0.
+55
+57
+59 *** 0.
+61 *** 0.
+63
+65
+67 *** 0.
+69
+71 *** 0.
+73 *** 0.
+75
+77
+79 *** 0.
+81
+83 *** 0.
+85
+87
+89 *** 0.
+91
+93
+95
+97 *** 0.
+99
+;Unspecified return value
+</code></pre><p>So now this is cool and all, but now, how do we compute 3 primes
+numbers larger than a given number ?</p>
+<h3 id="finding-primes-larger-than-a-given-number">Finding primes larger than a given number</h3>
+<p>We now have to find a prime number <em>larger</em> than a given a number.
+The problem here is that we don&rsquo;t have a definite number to end
+with. One thing, we could do to deal with that is guessing a random
+number larger than the given number. But there exists a much more
+elegant solution.</p>
+<p>Now, we want only three prime numbers. We could make a certain test
+asking &ldquo;If we haven&rsquo;t found three prime-numbers yet, loop&rdquo;. This makes
+things much simpler. But how do we know, if a number is prime or
+not? - the <code>timed-primes</code> procedure doesn&rsquo;t return a value. So we have
+two options :</p>
+<ol>
+<li>Make <code>timed-primes</code> return <code>#t</code> or <code>#f</code></li>
+<li>Do the <code>primes?</code> test again</li>
+</ol>
+<p>We are going to go with the second option. While, the first option is
+more efficient, we don&rsquo;t want to use <code>timed-primes</code> as a test as it
+has a completly diffrent purpose. Doing so, is like smearing white
+paint on a priceless painting for the sake of it being lighter in
+shade. A much better thing to do is keeping it under better light.</p>
+<p>Now, we need to change how range works. Here&rsquo;s a good description of
+what we need:</p>
+<blockquote>
+<p><code>cond</code> we haven&rsquo;t found three primes, do `(timed-primes cur-val)
+again.
+If we found a prime, increment count by 1 and cur-val by 2
+Else just loop with cur-val incremented by 2</p>
+</blockquote>
+<p>Now, that will give us this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">prime-range</span> cur-val count req)
+  (<span style="color:#66d9ef">cond </span>((not (= count req))
+	  (<span style="color:#a6e22e">timed-prime-test</span> cur-val)
+	  (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">prime?</span> cur-val)
+	      (<span style="color:#a6e22e">prime-range</span> (+ cur-val <span style="color:#ae81ff">2</span>)(+ count <span style="color:#ae81ff">1</span>) req)
+	      (<span style="color:#a6e22e">prime-range</span> (+ cur-val <span style="color:#ae81ff">2</span>) count  req)))))
+
+	  
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">search-for-primes</span> range no-of-primes)
+  (<span style="color:#a6e22e">prime-range</span> (<span style="color:#66d9ef">if </span>(even? range)(- range <span style="color:#ae81ff">1</span>) range) <span style="color:#ae81ff">0</span> no-of-primes))
+
+</code></pre></div><p>Testing it gives use this:</p>
+<pre><code>1 (user) =&gt; (search-for-primes 100 3)
+
+99
+101 *** 0.
+103 *** 0.
+105
+107 *** 0.
+;Unspecified return value
+</code></pre><p>However, there&rsquo;s a way we can only test run <code>timed-prime-test</code> only
+when the current value is prime. This procedure takes less screen
+space and also more efficient:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">prime-range</span> cur-val count req)
+  (<span style="color:#66d9ef">cond </span>((not (= count req))
+	  (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">prime?</span> cur-val)
+	      (<span style="color:#66d9ef">and </span>(<span style="color:#a6e22e">timed-prime-test</span> cur-val)
+	       (<span style="color:#a6e22e">prime-range</span> (+ cur-val <span style="color:#ae81ff">2</span>)(+ count <span style="color:#ae81ff">1</span>) req))
+	      (<span style="color:#a6e22e">prime-range</span> (+ cur-val <span style="color:#ae81ff">2</span>) count  req)))))
+</code></pre></div><p>And testing is gives this:</p>
+<pre><code>(search-for-primes 100 3)
+
+101 *** 0.
+103 *** 0.
+107 *** 0.
+;Unspecified return value
+</code></pre><p>Much cleaner! We are now ready to do go the next few parts of the
+Exercise.</p>
+<h2 id="use-our-procedure">Use our procedure</h2>
+<p>We now need to find the first 3 primes greater than:</p>
+<ol>
+<li>100</li>
+<li>1,000</li>
+<li>10,000</li>
+<li>100,000</li>
+<li>1,000,000</li>
+</ol>
+<p>So the results:</p>
+<p>100 :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">search-for-primes</span> <span style="color:#ae81ff">100</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#ae81ff">101</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">103</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">107</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#75715e">;Unspecified return value</span>
+</code></pre></div><p>1,000:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">search-for-primes</span> <span style="color:#ae81ff">1000</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#ae81ff">1009</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">1013</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">1019</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#75715e">;Unspecified return value</span>
+
+</code></pre></div><p>10,000:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">search-for-primes</span> <span style="color:#ae81ff">10000</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#ae81ff">10007</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">10009</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">10037</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#75715e">;Unspecified return value</span>
+</code></pre></div><p>100,000:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">search-for-primes</span> <span style="color:#ae81ff">100000</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#ae81ff">100003</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">100019</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">100043</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#75715e">;Unspecified return value</span>
+</code></pre></div><p>1,000,000:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">search-for-primes</span> <span style="color:#ae81ff">1000000</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#ae81ff">1000003</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">1000033</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">1000037</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#75715e">;Unspecified return value</span>
+</code></pre></div><p>Sicp, is an old book, and technology has improved. So, what I think we
+should do, is find for larger values.</p>
+<p>10,000,000:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">search-for-primes</span> <span style="color:#ae81ff">10000000</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#ae81ff">10000019</span> *** <span style="color:#ae81ff">1.9999999999999574</span>e-2
+<span style="color:#ae81ff">10000079</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">10000103</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#75715e">;Unspecified return value</span>
+</code></pre></div><p>100,000,000:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">search-for-primes</span> <span style="color:#ae81ff">100000000</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#ae81ff">100000007</span> *** <span style="color:#ae81ff">1.0000000000001563</span>e-2
+<span style="color:#ae81ff">100000037</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#ae81ff">100000039</span> *** <span style="color:#ae81ff">0</span><span style="color:#f92672">.</span>
+<span style="color:#75715e">;Unspecified return value</span>
+</code></pre></div><p>1,000,000,000</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">search-for-primes</span> <span style="color:#ae81ff">1000000000</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#ae81ff">1000000007</span> *** <span style="color:#ae81ff">1.9999999999999574</span>e-2
+<span style="color:#ae81ff">1000000009</span> *** <span style="color:#ae81ff">2.9999999999997584</span>e-2
+<span style="color:#ae81ff">1000000021</span> *** <span style="color:#ae81ff">1.9999999999999574</span>e-2
+<span style="color:#75715e">;Unspecified return value</span>
+</code></pre></div><p>10,000,000,000</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">search-for-primes</span> <span style="color:#ae81ff">10000000000</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#ae81ff">10000000019</span> *** <span style="color:#f92672">.</span><span style="color:#ae81ff">08000000000000185</span>
+<span style="color:#ae81ff">10000000033</span> *** <span style="color:#f92672">.</span><span style="color:#ae81ff">08000000000000185</span>
+<span style="color:#ae81ff">10000000061</span> *** <span style="color:#f92672">.</span><span style="color:#ae81ff">0799999999999983</span>
+<span style="color:#75715e">;Unspecified return value</span>
+</code></pre></div><p>100,000,000,000</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">search-for-primes</span> <span style="color:#ae81ff">100000000000</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#ae81ff">100000000003</span> *** <span style="color:#f92672">.</span><span style="color:#ae81ff">25</span>
+<span style="color:#ae81ff">100000000019</span> *** <span style="color:#f92672">.</span><span style="color:#ae81ff">2699999999999996</span>
+<span style="color:#ae81ff">100000000057</span> *** <span style="color:#f92672">.</span><span style="color:#ae81ff">26000000000000156</span>
+<span style="color:#75715e">;Unspecified return value</span>
+</code></pre></div><p>Now, we have some information we can use.</p>
+<h1 id="is-our-claim-true--conclusion">Is our claim true ? (Conclusion)</h1>
+<p>Judging from the values we got from 100,000,000,000 I say yes.</p>
+<p>$\sqrt[]{100000000003} =  316,227.7660215813$. $\sqrt[]{100000000019}
+= 316,227.7660468796$. Their quotient is 1.</p>
+<p>0.25 / 0.2699999999999996 = ~0.92592592596021947874.</p>
+<p>So, our claim is true !! At least in my machine.</p>
+<p>Please let me know, if I did anything wrong. I really appreciate
+feedback .</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

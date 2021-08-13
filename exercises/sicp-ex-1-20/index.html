@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.20 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.20</h1>
+  <time datetime=2020-11-26T00:00:00Z class="post-date">Thu, Nov 26, 2020</time>
+  <p>This is the $20^{th}$ question in Sicp. In general I feel that
+this is a rather easy question to the previous ones.</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.20:</strong> The process that a procedure generates is of course
+dependent on the rules used by the interpreter. As an example,
+consider the iterative gcd procedure given above. Suppose we
+were to interpret this procedure using normal-order evaluation,
+as discussed in Section 1.1.5. (The normal-order-evaluation rule
+for if is described in <a href="https://benjamin-philip.github.io/sicp/sicp-ex-1-5">Exercise 1.5.</a>) Using the substitution method
+(for normal order), illustrate the process generated in evaluating
+<code>(gcd 206 40)</code> and indicate the remainder operations that are
+actually performed. How many remainder operations are actually
+performed in the normal-order evaluation of <code>(gcd 206 40)</code> ? In
+the applicative-order evaluation?</p>
+<h1 id="the-answer">The Answer</h1>
+<p>A quick summary from applicative order vs normal order :</p>
+<ul>
+<li>Normal order only evaluates when the value is needed.(fully expanded and then eval)</li>
+<li>Applicative order evaluates immediately</li>
+</ul>
+<p>Here is the gcd code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(gcd a b)
+  (<span style="color:#66d9ef">if </span>(= b <span style="color:#ae81ff">0</span>)
+      a
+      (gcd b (remainder a b))))
+</code></pre></div><p>Since, normal order evaluates only after fully expanding, the functions get really nested.
+So, pardon any errors. Here&rsquo;s the normal order evaluation:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(gcd <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
+
+(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">0</span>)
+    <span style="color:#ae81ff">40</span>
+    (gcd <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)))
+
+(<span style="color:#66d9ef">if </span>(= (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>) <span style="color:#ae81ff">0</span>)
+    (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)
+    (gcd (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))))
+
+(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">0</span>)<span style="color:#75715e">;; 1 remainder is evaluated </span>
+    <span style="color:#ae81ff">6</span>
+    (gcd (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))))
+
+(<span style="color:#66d9ef">if </span>(= (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)) <span style="color:#ae81ff">0</span>)
+    (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))
+(gcd (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)) ((remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)))))
+
+
+(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">0</span>)<span style="color:#75715e">;; 2 remainders are evaluated</span>
+    <span style="color:#ae81ff">4</span>
+    ((gcd (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)) ((remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)(remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>))))))
+
+<span style="color:#75715e">;; This pattern continues until ..</span>
+
+(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>) <span style="color:#75715e">;; 7 remainders evaluated</span>
+    (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
+               (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)))
+    (gcd (remainder (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>))
+                    (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
+                               (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>))))
+         (remainder (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
+                               (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)))
+                    (remainder (remainder <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>))
+                               (remainder (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)
+                                          (remainder <span style="color:#ae81ff">40</span>
+                                                     (remainder <span style="color:#ae81ff">206</span> <span style="color:#ae81ff">40</span>)))))))
+<span style="color:#75715e">;Value: 2</span>
+
+</code></pre></div><p>The Applicative order is the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">
+(gcd <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)
+
+(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">0</span>)
+    <span style="color:#ae81ff">40</span>
+    (gcd <span style="color:#ae81ff">40</span> (remainder <span style="color:#ae81ff">260</span> <span style="color:#ae81ff">40</span>)))
+
+(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">0</span>)
+    <span style="color:#ae81ff">40</span>
+    (gcd <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">6</span>)) <span style="color:#75715e">;; immediately evaluated</span>
+
+(gcd <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">6</span>)
+
+(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">0</span>)
+    <span style="color:#ae81ff">40</span>
+    (gcd <span style="color:#ae81ff">6</span> (remainder <span style="color:#ae81ff">40</span> <span style="color:#ae81ff">6</span>)))
+
+(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">0</span>)
+    <span style="color:#ae81ff">40</span>
+    (gcd <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">4</span>))
+
+(gcd <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">4</span>)
+
+(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">0</span>)
+    <span style="color:#ae81ff">6</span>
+    (gcd <span style="color:#ae81ff">4</span> (remainder <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">4</span>)))
+
+(gcd <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2</span>)
+
+(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span>)
+    <span style="color:#ae81ff">4</span>
+    (gcd <span style="color:#ae81ff">4</span> (remainder <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">2</span>)))
+
+(gcd <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span>)
+
+(<span style="color:#66d9ef">if </span>(= <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span>)
+    <span style="color:#ae81ff">2</span>
+    (gcd <span style="color:#ae81ff">2</span> (remainder <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span>)))
+
+<span style="color:#75715e">;Value: 2</span>
+</code></pre></div><p>That&rsquo;s it. Hope it helps.</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

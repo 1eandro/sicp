@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.4 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.4</h1>
+  <time datetime=2020-10-20T00:00:00Z class="post-date">Tue, Oct 20, 2020</time>
+  <p>This the 4th Exercise in SICP</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.4:</strong> Observe that our model of evaluation allows for
+more combinations whose operators are compound expressions. Use this
+observation to describe the behavior of the following procedure:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">a-plus-abs-b</span> a b)
+  ((<span style="color:#66d9ef">if </span>(&gt; b <span style="color:#ae81ff">0</span>) + - ) a b))
+</code></pre></div><h1 id="the-answer">The Answer</h1>
+<p>Now in this case, all that is being done is:</p>
+<ol>
+<li>Check if b is positive or negative</li>
+<li>And run (+ a b) if b is positive, or run (- a b) if negative.</li>
+</ol>
+<p>In the if statement, notice that it is surrounded by two brackets
+instead of one. This is how the returned function is run.</p>
+<p>So in short:</p>
+<p>If b is larger than 0 (positive) (+ a b) is returned, Else (- a b) is returned.</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

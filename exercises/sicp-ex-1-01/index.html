@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.1 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.1</h1>
+  <time datetime=2020-10-13T00:00:00Z class="post-date">Tue, Oct 13, 2020</time>
+  <p>So I had just started reading SICP. It’s this amazing book that was used
+to teach Comp Sc. to students who had never programmed before at MIT.
+When I thought that I should write a blog post with a solution for every
+exercise I attempt. So I am gonna write solutions for all the exercise
+in SICP. My plan is to finish this book in one year.</p>
+<p>You can obtain a copy of SICP for free because of <a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/">MIT-Open course ware!</a></p>
+<h1 id="my-setup">My setup</h1>
+<p>My plan is to use emacs(sorry for the adultery vim!) with slime, and
+guile. I haven’t setup it up yet, though I will attach a link to the
+post when I do. I strongly encourage you to setup emacs though because
+soon the exercises will get really complicated, and the support emacs
+has for Lisp (Being written in lisp itself) will be really helpful while
+editing.</p>
+<p>So without further delay, Let’s get to the exercise</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.1:</strong> Below is a sequence of expressions. What is the result
+printed by the interpreter in response to each expression? Assume that
+the sequence is to be evaluated in the order in which presented.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme"><span style="color:#ae81ff">10</span>
+(+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span>)
+(- <span style="color:#ae81ff">9</span> <span style="color:#ae81ff">1</span>)
+(/ <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">2</span>)
+(+ (* <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">4</span>) (- <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">6</span>))
+(<span style="color:#66d9ef">define </span>a <span style="color:#ae81ff">3</span>)
+(<span style="color:#66d9ef">define </span>b (+ a <span style="color:#ae81ff">1</span>))
+(+ a b (* a b))
+(= a b)
+(<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">and </span>(&gt; b a) (&lt; b (* a b)))
+    b
+    a)
+(<span style="color:#66d9ef">cond </span>((= a <span style="color:#ae81ff">4</span>) <span style="color:#ae81ff">6</span>)
+      ((= b <span style="color:#ae81ff">4</span>) (+ <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">7</span> a))
+      (<span style="color:#66d9ef">else </span><span style="color:#ae81ff">25</span>))
+(+ <span style="color:#ae81ff">2</span> (<span style="color:#66d9ef">if </span>(&gt; b a) b a))
+(* (<span style="color:#a6e22e">cond</span>) ((&gt; a b) a)
+          ((&lt; a b) b)
+          (<span style="color:#66d9ef">else </span><span style="color:#ae81ff">-1</span>))
+   (+ a <span style="color:#ae81ff">1</span>)
+</code></pre></div><h1 id="my-thoughts">My Thoughts</h1>
+<p>So far, the authors have been explaining about the basic syntax of
+scheme. If you are reading this, you most likely also read SICP till
+this exercise. So I am not gonna speak much about it, but make a table
+of the syntax:</p>
+<!-- raw HTML omitted -->
+<h1 id="answers">Answers</h1>
+<p>So now that we have got out table, let us get started. To check our answers we can use the <a href="https://www.gnu.org/software/mit-scheme/documentation/testing/mit-scheme-user.html">Scheme shell</a></p>
+<blockquote>
+<p>10</p>
+</blockquote>
+<p>That will return 10</p>
+<blockquote>
+<p>(+ 5 3 4)</p>
+</blockquote>
+<p><code>(+ 5 3 4)</code> is basically &ldquo;sum of 5,3,4&rdquo; but in <a href="https://en.wikipedia.org/wiki/Polish_notation">prefix notation</a>. That will be 12.</p>
+<blockquote>
+<p>(- 9 1)</p>
+</blockquote>
+<p>9 - 1 is 8. So it will return 8</p>
+<blockquote>
+<p>( / 6 2)</p>
+</blockquote>
+<p>$6 \div 2$ is 3. So 3.</p>
+<blockquote>
+<p>(+ (* 2 4) (- 4 6))</p>
+</blockquote>
+<p>First, $2 \times 4$ is 8 and 4 - 6 is -2.
+Then 8 + -2 is 6.</p>
+<blockquote>
+<p>(define a 3)</p>
+</blockquote>
+<p><code>a</code> is now three.</p>
+<blockquote>
+<p>(define b (+ a 1)))</p>
+</blockquote>
+<p>So b will be a + 1 , which is 3 + 1, which equals to 4.</p>
+<blockquote>
+<p>(+ a b (* a b))</p>
+</blockquote>
+<p>First $a \times b = 3 \times 4 = 12$.
+Then 3 + 4 + 12 = 19.</p>
+<blockquote>
+<p>(= a b)</p>
+</blockquote>
+<p>Now, this test that will output a Boolean.
+Since 3 is <em><strong>not</strong></em> = 4, it will be False.</p>
+<blockquote>
+<p>(if (and (&gt; b a) (&lt; b (* a b)))
+b
+a)</p>
+</blockquote>
+<p><code>and</code> adds to the test, and now checks if <em><strong>both</strong></em>(<code>(&gt; b a)</code> and <code>(&lt; b (* a b) ))</code>
+return true. Since 4 is greater than 3 and 4 is lesser than 12, this returns True,
+and 4 is returned.</p>
+<blockquote>
+<p>(cond ((= a 4) 6)
+((= b 4) (+ 6 7 a))
+(else 25))</p>
+</blockquote>
+<p><code>b = 4</code> is the first thing that came true so,
+what will be returned will be 6 + 7 + 3 = 10.</p>
+<blockquote>
+<p>(* (cond ((&gt; b a) b a))
+((&lt; a b) b)
+(else -1))
+(+ a 1))</p>
+</blockquote>
+<p>This just multiplies whatever <code>cond</code> returns by 4.
+<code>cond</code> returns 4, so $4^{2} = 16$</p>
+<p>That&rsquo;s it! Tell us about in the comments below about your experience
+with SICP so far!</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

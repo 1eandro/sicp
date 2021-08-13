@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.28 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.28</h1>
+  <time datetime=2020-12-02T00:00:00Z class="post-date">Wed, Dec 2, 2020</time>
+  <p>This is the 28th Exercise from Sicp. Here we implement an unfoolable
+version of the Fermat test called the Miller Rabin Test.</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.28:</strong> One variant of the Fermat test that cannot be fooled
+is called the <em>Miller-Rabin</em> test (Miller 1976; Rabin 1980). This starts
+from an alternate form of Fermat’s Little Theorem, which states
+that if $n$ is a prime number and $a$ is any positive integer less than $n$
+,then a raised to the $( n − 1)$-st power is congruent to 1 modulo <em>n</em> . To
+test the primality of a number n by the Miller-Rabin test, we pick a
+random number $a &lt; n$ and raise $a$ to the $( n − 1)$-st power modulo
+$n$ using the expmod procedure. However, whenever we perform the
+squaring step in expmod , we check to see if we have discovered a
+“nontrivial square root of 1 modulo $n$ ,” that is, a number not equal
+to 1 or n − 1 whose square is equal to 1 modulo n . It is possible to
+prove that if such a nontrivial square root of 1 exists, then $n$ is not
+prime. It is also possible to prove that if $n$ is an odd number that
+is not prime, then, for at least half the numbers $a &lt; n$ , computing
+$a n− 1$ in this way will reveal a nontrivial square root of 1 modulo $n$ .
+(This is why the Miller-Rabin test cannot be fooled.) Modify the
+expmod procedure to signal if it discovers a nontrivial square root
+of 1, and use this to implement the Miller-Rabin test with a proce-
+dure analogous to fermat-test . Check your procedure by testing
+various known primes and non-primes. Hint: One convenient way
+to make expmod signal is to have it return 0.</p>
+<h1 id="my-thoughts">My thoughts</h1>
+<p>Hmm&hellip; This question is more challenging than the previous few.</p>
+<p>The way the Miller Rabin Test works, is that it looks for a nontrivial
+square-root of 1 modulo <code>n</code> inplace of the squaring step in
+<code>expmod</code>. If it isn&rsquo;t a non-trivial &hellip;, We square the number and
+continue, else, we know that <code>n</code> is not a prime number.</p>
+<h1 id="the-answer">The Answer</h1>
+<p>We now, need to write a procedure that checks if a number is a
+non-trivial square root of 1 modulo 1. If we do find one, we signal 0
+and stop.</p>
+<h2 id="non-trivial-sqrt">Non-trivial sqrt</h2>
+<blockquote>
+<p>we check to see if we have discovered a
+“nontrivial square root of 1 modulo n ,” that is, a number not equal
+to 1 or n − 1 whose square is equal to 1 modulo n .</p>
+</blockquote>
+<p>This gives us a breig idea of how to check for a not trivial square
+root. Here is the scheme code for it :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">not-trivial?</span> n num)
+  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">and </span>(= (<span style="color:#a6e22e">square</span> n)(remainder <span style="color:#ae81ff">1</span> n)) (not (<span style="color:#66d9ef">and </span>(= num <span style="color:#ae81ff">1</span>)(= num (- n <span style="color:#ae81ff">1</span>)))))
+      <span style="color:#66d9ef">#t</span>
+      <span style="color:#66d9ef">#f</span>))
+</code></pre></div><p>We can make a function that square if a numbers in trivial and returns
+0 if not trivial:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">check</span> n num)
+  (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">not-trivial?</span> n num)
+      <span style="color:#ae81ff">0</span>
+      (<span style="color:#a6e22e">square</span> num )))
+</code></pre></div><h2 id="redefing-expmod">Redefing <code>expmod</code></h2>
+<p>This is the current code for <code>expmod</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">expmod</span> base exp m)
+  (<span style="color:#66d9ef">cond </span>((= exp <span style="color:#ae81ff">0</span>) <span style="color:#ae81ff">1</span>)
+	((even? exp)
+	 (remainder (<span style="color:#a6e22e">square</span> (<span style="color:#a6e22e">expmod</span> base (/ exp <span style="color:#ae81ff">2</span>) m))
+		    m))
+	(<span style="color:#a6e22e">else</span>
+	 (remainder (* base (<span style="color:#a6e22e">expmod</span> base (- exp <span style="color:#ae81ff">1</span>) m))
+		    m))))
+</code></pre></div><p>This is the difficult part. What we can do is, check the value. At the remainder bit,
+we check if our value is 0. If it is, we return 0, and if it isn&rsquo;t we
+just do the remainder. At the end, <code>expmod</code> returns 0 if there is a
+non-trivial square root. We shall get to that soon.</p>
+<p>We can use this for the remainder bit. This checks if the value is
+zero and act accordingly:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">trivial-mod</span> num mod)
+  (<span style="color:#66d9ef">if </span>(= num <span style="color:#ae81ff">0</span>)
+      <span style="color:#ae81ff">0</span>
+      (remainder num mod)))
+</code></pre></div><p>And now define expmod:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">expmod</span> base exp m)
+  (<span style="color:#66d9ef">cond </span>((= exp <span style="color:#ae81ff">0</span>) <span style="color:#ae81ff">1</span>)
+	((even? exp)
+	 (<span style="color:#a6e22e">trivial-mod</span> (<span style="color:#a6e22e">check</span> (<span style="color:#a6e22e">expmod</span> base (/ exp <span style="color:#ae81ff">2</span>) m) base)
+		    m))
+	(<span style="color:#a6e22e">else</span>
+	 (<span style="color:#a6e22e">trivial-mod</span> (* base (<span style="color:#a6e22e">expmod</span> base (- exp <span style="color:#ae81ff">1</span>) m))
+		    m))))
+</code></pre></div><h2 id="final-product">Final Product</h2>
+<p>This is the Final Product:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fast-prime?</span> n times)
+  (<span style="color:#66d9ef">cond </span>((= times <span style="color:#ae81ff">0</span>) true)
+	((<span style="color:#a6e22e">fermat-test</span> n) (<span style="color:#a6e22e">fast-prime?</span> n (- times <span style="color:#ae81ff">1</span>)))
+	(<span style="color:#66d9ef">else </span>false)))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fermat-test</span> n)
+  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">try-it</span> a)
+    (= (<span style="color:#a6e22e">expmod</span> a n n) a))
+  (<span style="color:#a6e22e">try-it</span> (+ <span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">random</span> (- n <span style="color:#ae81ff">1</span>)))))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">expmod</span> base exp m)
+  (<span style="color:#66d9ef">cond </span>((= exp <span style="color:#ae81ff">0</span>) <span style="color:#ae81ff">1</span>)
+	((even? exp)
+	 (<span style="color:#a6e22e">trivial-mod</span> (<span style="color:#a6e22e">check</span> (<span style="color:#a6e22e">expmod</span> base (/ exp <span style="color:#ae81ff">2</span>) m) base)
+		    m))
+	(<span style="color:#a6e22e">else</span>
+	 (<span style="color:#a6e22e">trivial-mod</span> (* base (<span style="color:#a6e22e">expmod</span> base (- exp <span style="color:#ae81ff">1</span>) m))
+		    m))))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">trivial-mod</span> num mod)
+  (<span style="color:#66d9ef">if </span>(= num <span style="color:#ae81ff">0</span>)
+      <span style="color:#ae81ff">0</span>
+      (remainder num mod)))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">check</span> n num)
+  (<span style="color:#66d9ef">if </span>(<span style="color:#a6e22e">not-trivial?</span> n num)
+      <span style="color:#ae81ff">0</span>
+      (<span style="color:#a6e22e">square</span> num )))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">not-trivial?</span> n num)
+  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">and </span>(= (<span style="color:#a6e22e">square</span> n)(remainder <span style="color:#ae81ff">1</span> n)) (not (<span style="color:#66d9ef">and </span>(= num <span style="color:#ae81ff">1</span>)(= num (- n <span style="color:#ae81ff">1</span>)))))
+      <span style="color:#66d9ef">#t</span>
+      <span style="color:#66d9ef">#f</span>))
+</code></pre></div><p>And checking it gives:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">fast-prime?</span> <span style="color:#ae81ff">561</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#75715e">;Value: #f</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">fast-prime?</span> <span style="color:#ae81ff">1105</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#75715e">;Value: #f</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">fast-prime?</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#75715e">;Value: #t</span>
+</code></pre></div>
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="My journey reading Sicp: From learning scheme to building an interpreter." />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="https://bphilip.gitlab.io/sicp/index.xml" rel="alternate" type="application/rss+xml" title="Ben's Solutions to Sicp" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="posts">
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-35/">Exercise 1.35</a>
+  </h1>
+  <time datetime="2021-02-02T00:00:00Z" class="post-date">Tue, Feb 2, 2021</time>
+  This is the $35^{th}$ exercise from Sicp. Here, we calculate the golden ratio ($\varphi$) by finding the fixed point of a function.
+The Question Exercsie 1.35: Show that the golden ratio $\varphi$ (Section 1.2.2) is a fixed point of the transformation $x \mapsto 1 + 1/x$ , and use this fact to compute $\varphi$ by means of the fixed-point procedure.
+The Answer This is simple. We already know that $\varphi$ is equal to $\frac{1 + \sqrt{5}}{2}$.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-35/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-36/">Exercise 1.36</a>
+  </h1>
+  <time datetime="2021-02-02T00:00:00Z" class="post-date">Tue, Feb 2, 2021</time>
+  This is the $36^{th}$ Exercise from Sicp. Here we modify fixed-point so that it prints each guess. We then find a solution to $x^{x} = 1000$.
+The Question Exercise 1.36: Modify fixed-point so that it print the sequence of approximations it generates, using the newline and display primitives shown in Exercise 1.22. Then find a solution to $x^{x} = 1000$ by finding a fixed point of $x \mapsto \log(1000)/\log(x)$. (Use scheme&rsquo;s primitive logprocedure, which computes natural logarithms.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-36/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-34/">Exercise 1.34</a>
+  </h1>
+  <time datetime="2021-01-29T00:00:00Z" class="post-date">Fri, Jan 29, 2021</time>
+  This is the $34^{th}$ Exercise in Sicp, Here, we explain what happens when we we try to use a number as a procedure.
+The Question Exercise 1.34: Suppose we define the procedure
+(define (f g) (g 2)) Then we have
+(f square) 4 (f (lamda (z) (* z (+ z 1)))) 6 What happens is we (perversely) ask the interpreter to evaluate the combination (f f) ? Explain.
+The Answer The function f, applies the parameter g as a function.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-34/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-31/">Exercise 1.31</a>
+  </h1>
+  <time datetime="2021-01-21T00:00:00Z" class="post-date">Thu, Jan 21, 2021</time>
+  This is the $31^{th}$ Exercise from Sicp. Here, we define a procedure call product analogous to a sum. Using product, we define factorial and compute approximations of $\pi$
+The Question Exercise 1.31:
+A) The sum procedure is only the simplest of a vast number of similar abstractions that can be captured as higher-order procedures. Write an analogous procedure called product that returns the product of the values of a function at points over a given range.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-31/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-32/">Exercise 1.32</a>
+  </h1>
+  <time datetime="2021-01-21T00:00:00Z" class="post-date">Thu, Jan 21, 2021</time>
+  This is the $32^{th}$ exercise from Sicp. Here we create a function that creates functions like the sum and product procedures from the previous exercises.
+The Question Exercise 1.32:
+A) Show that sum and product Exercise 1.31 are both special cases of a still more general notion called accumulate that combines a collection of terms using some general accumulation functions:
+(accumulate combiner null-value term a next b) acumulate take as arguments the same term and range specifications as sum and product, together with a combiner procedure (of two arguments) that specifies how the current term is to be combined with the accumulation of the preceding terms and a null-value that specifies what base value to use when the terms run out.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-32/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-30/">Exercise 1.30</a>
+  </h1>
+  <time datetime="2021-01-20T00:00:00Z" class="post-date">Wed, Jan 20, 2021</time>
+  This is the $30^{th}$ Exercise from Sicp. Here, we write an iterative version of `sum**.
+The Question Exercise 1.30: The sum procedure above generates a linear recursion. The procedure can be rewritten so that the sum is performed iteratively. Show how to do this by filling in the missing expressions in the following definition:
+(define (sum term a next b) (define (iter a result) (if 〈 ?? 〉 〈 ?? 〉 (iter 〈 ?
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-30/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-29/">Exercise 1.29</a>
+  </h1>
+  <time datetime="2021-01-16T00:00:00Z" class="post-date">Sat, Jan 16, 2021</time>
+  This is the $29^{th}$ exercise in Sicp. Here, we a write a procedure to compute integrals using (Homer) Simpson&rsquo;s rule.
+The Question Exercise 1.29: Simpson’s Rule is a more accurate method of numerical integration than the method illustrated above. Using Simpson’s Rule, the integral of a function f between a and b is approximated as
+$$\frac{h}{3}\big(y_{0} + 4y_{1} + 2y_{2} + 4y_{3} + 2y_{4} + &hellip; 2y_{n - 2} + 4y_{n - 1} + y_{n} \big) $$
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-29/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-26/">Exercise 1.26</a>
+  </h1>
+  <time datetime="2020-12-02T00:00:00Z" class="post-date">Wed, Dec 2, 2020</time>
+  This is the 26th Question from Sicp. This question is about Order of Growth and what not.
+The Question Exercise 1.26: Louis Reasoner is having great difficulty doing Exercise 1.24. His fast-prime? test seems to run more slowly than his prime? test. Louis calls his friend Eva Lu Ator over to help. When they examine Louis’s code, they find that he has rewritten the expmod procedure to use an explicit multiplication, rather than calling square :
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-26/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-27/">Exercise 1.27</a>
+  </h1>
+  <time datetime="2020-12-02T00:00:00Z" class="post-date">Wed, Dec 2, 2020</time>
+  This is the 27th question from Sicp. Here we just Run a procedure.
+The Question Exercise 1.27: Demonstrate that the Carmichael numbers listed in Footnote 1.47 really do fool the Fermat test. That is, write a proce- dure that takes an integer n and tests whether a n is congruent to a modulo n for every a &lt; n , and try your procedure on the given Carmichael numbers.
+My thoughts This is also rather simple.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-27/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-28/">Exercise 1.28</a>
+  </h1>
+  <time datetime="2020-12-02T00:00:00Z" class="post-date">Wed, Dec 2, 2020</time>
+  This is the 28th Exercise from Sicp. Here we implement an unfoolable version of the Fermat test called the Miller Rabin Test.
+The Question Exercise 1.28: One variant of the Fermat test that cannot be fooled is called the Miller-Rabin test (Miller 1976; Rabin 1980). This starts from an alternate form of Fermat’s Little Theorem, which states that if $n$ is a prime number and $a$ is any positive integer less than $n$ ,then a raised to the $( n − 1)$-st power is congruent to 1 modulo n .
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-28/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-24/">Exercise 1.24</a>
+  </h1>
+  <time datetime="2020-12-01T00:00:00Z" class="post-date">Tue, Dec 1, 2020</time>
+  This is the 24th question from Sicp. And yet again, I feel this is a really easy question.
+The Question Exercise 1.24: Modify the timed-prime-test procedure of Exercise 1.22 to use fast-prime?(the Fermat method), and the test each of the 12 primes you found in that exercise. Since the Fermat test has $\theta(\log n)$ growth, how would you expect the time to test primes near 1,000,000 to compare with the time needed to test primes near 1000?
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-24/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-25/">Exercise 1.25</a>
+  </h1>
+  <time datetime="2020-12-01T00:00:00Z" class="post-date">Tue, Dec 1, 2020</time>
+  This is the 25th question from Sicp. I personally find that this question is really interesting.
+The Question Exercise 1.25: Alyssa P. Hacker complains that we went to a lot of extra work in writing expmod . After all, she says, since we already know how to compute exponentials, we could have simply written
+(define (expmod base exp m) (remainder (fast-expt base exp) m)) Is she correct? Would this procedure serve as well for our fast prime tester?
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-25/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-23/">Exercise 1.23</a>
+  </h1>
+  <time datetime="2020-11-30T00:00:00Z" class="post-date">Mon, Nov 30, 2020</time>
+  This is the 23rd exercise from Sicp.
+The Question Exercise 1.23: The smallest-divisor procedure shown at the start of this section does lots of needless testing: After it checks to see if the number is divisible by 2 there is no point in checking to see if it is divisible by any larger even numbers. This suggests that the values used for test-divisor should not be 2, 3, 4, 5, 6, .
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-23/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/examples/example-testing-for-primality/">Example - Testing for Primality</a>
+  </h1>
+  <time datetime="2020-11-27T00:00:00Z" class="post-date">Fri, Nov 27, 2020</time>
+  This is section describes of methods for checking whether a number n is prime or not. One with order of growth $\theta(\sqrt[]{n})$ and another of growth $\theta(\log n)$.
+The First method A common way to check if a number is prime or not is by finding all the factors of that number. Take the number 2. Its' factors are 1 and 2. Thus it is prime. Or take 6. It can be expressed as $\times[2][3]3$ or $\times[6][1]$.
+  
+  <div class="read-more-link">
+    <a href="/sicp/examples/example-testing-for-primality/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-22/">Exercise 1.22</a>
+  </h1>
+  <time datetime="2020-11-27T00:00:00Z" class="post-date">Fri, Nov 27, 2020</time>
+  This the 22nd quesion in Sicp. I feel that this question is much more interesting than lot of the others, because we finally get play with the runtime ! (I wonder how you interfer with memory management.)
+The Quesion Exercise 1.22: Most Lisp implementations include a primitive called runtime that returns an integer that specifies the amount of time the system has been running (measured, for example, in microseconds). The following timed-prime-test procedure, when called with an integer n , prints n and checks to see if n is prime.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-22/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-20/">Exercise 1.20</a>
+  </h1>
+  <time datetime="2020-11-26T00:00:00Z" class="post-date">Thu, Nov 26, 2020</time>
+  This is the $20^{th}$ question in Sicp. In general I feel that this is a rather easy question to the previous ones.
+The Question Exercise 1.20: The process that a procedure generates is of course dependent on the rules used by the interpreter. As an example, consider the iterative gcd procedure given above. Suppose we were to interpret this procedure using normal-order evaluation, as discussed in Section 1.1.5. (The normal-order-evaluation rule for if is described in Exercise 1.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-20/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-21/">Exercise 1.21</a>
+  </h1>
+  <time datetime="2020-11-26T00:00:00Z" class="post-date">Thu, Nov 26, 2020</time>
+  This is the 21 first question from Sicp and I feel this exercise is very simple compared to the others after this.
+The Question Exercise 1.21: Use the smallest-divisor procedure to find the smallest divisor of each of the following numbers: 199, 1999, 19999
+The Answer This question is quite simple: Evaluate this code in a REPL.
+So here&rsquo;s the code for smallest-divisor:
+(define (smallest-divisor n) (find-divisor n 2)) (define (find-divisor n test-divisor) (cond ((&gt; (square test-divisor) n) n) ((divides?
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-21/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-18/">Exercise 1.18</a>
+  </h1>
+  <time datetime="2020-11-24T00:00:00Z" class="post-date">Tue, Nov 24, 2020</time>
+  This is the $18^{th}$ question in Sicp. And it quite similar to the 16th question.
+The Question Exercise 1.18: Using the results of Exercise 1.16 and Exercise 1.17, devise a procedure that generates an iterative process for multiplying two intergers in the form of adding, doubling, halving, and uses a logarithmic number of steps.
+My Thoughts This is quite direct. Write an iterative procedure that multiplies in a logarithmic number of steps.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-18/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-19/">Exercise 1.19</a>
+  </h1>
+  <time datetime="2020-11-24T00:00:00Z" class="post-date">Tue, Nov 24, 2020</time>
+  Now, this question is not as easy as the last. This is the $19^{th}$ from Sicp.
+The Question Exercise 1.19 There is a clever algorithm for computing the Fibonacci numbers in a logarithmic number of steps. Recall the transformation of the state variables a and b in the fib-iter process of Section 1.2.2: $ a \leftarrow a + b $ and $ b \leftarrow a$. Call this transformation $T$ , and observe that applying $T$ over and over again $n$ times, starting with 1 and 0, produces the pair Fib( n + 1) and Fib( n ).
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-19/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-17/">Exercise 1.17</a>
+  </h1>
+  <time datetime="2020-11-23T00:00:00Z" class="post-date">Mon, Nov 23, 2020</time>
+  This is the 17 exercise of Sicp and I am posting after a long time. I hope that this question will be interesting.
+The Question Exercise 1.17: The exponentiation algorithms in this section are based on performing exponentiation by means of repeated multiplication. In a similar way, one can perform integer multiplication by means of repeated addition. The following multiplication procedure (in which it is assumed that our language can only add, not multiply) is analogous to the expt procedure:
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-17/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-16/">Exercise 1.16</a>
+  </h1>
+  <time datetime="2020-11-12T00:00:00Z" class="post-date">Thu, Nov 12, 2020</time>
+  This is the 16th Question. Here we design and iterative procedure for exponentiation which uses a logarithmic number of steps.
+The Question Exercise 1.16: Design a procedure that evolves an iterative exponentiation process that uses successive squaring and uses a logarithmic number of steps, as does fast-expt. (Hint: Using the observation that $(b^{n/2})^{2} = (b^{2})^{n/2}$, keep along with the exponent n and the base b, an additional state variable a, define the state transformation in such a way that the product $ab^{n}$ is unchanged from state to state.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-16/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-14/">Exercise 1.14</a>
+  </h1>
+  <time datetime="2020-10-28T00:00:00Z" class="post-date">Wed, Oct 28, 2020</time>
+  This the 14th exercise in Sicp. Here, we draw a tree of the count-change procedure, and find how the space required and the number of steps grows.
+The Question Exercise 1.14: Draw the tree illustrating the process generated by the count-change procedure of Section 1.2.2 in making change for 11 cents. What are the orders of growth of the space and number of steps used by this process as the amount to be changed increases?
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-14/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-13/">Exercise 1.13</a>
+  </h1>
+  <time datetime="2020-10-27T00:00:00Z" class="post-date">Tue, Oct 27, 2020</time>
+  This is the 13 exercise in Sicp. Here we prove that Fib(n) is equal to varphi divided by root 5.
+The Question Exercise 13: Prove that Fib(n) is the closest integer to $ \varphi^{n}/\sqrt[]{5} $ , where $ \varphi = (1 + \sqrt[]{5})/2 $ Hint : Let $\psi = (1 − \sqrt[]{5})/2$. Use induction and the definition of the Fibonacci numbers (see Section 1.2.2) to prove that Fib(n) = $(\varphi^{n} − \psi^{n})/\sqrt[]{5}$.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-13/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-11/">Exercise 1.11</a>
+  </h1>
+  <time datetime="2020-10-25T00:00:00Z" class="post-date">Sun, Oct 25, 2020</time>
+  This is the $11^{th}$ exercise in Sicp. Here we write an iterative process and a recursive process for the same function.
+The Question Exercise 1.11: A function f is defined by the rule that $f (n) = n$ if n &lt; 3$ and $f (n) = f (n − 1) + 2f (n − 2) + 3f (n − 3)$ if $n ≥ 3$. Write a procedure that computes f by means of a recursive process.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-11/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-12/">Exercise 1.12</a>
+  </h1>
+  <time datetime="2020-10-25T00:00:00Z" class="post-date">Sun, Oct 25, 2020</time>
+  This is the $12^{th}$ exercise in Sicp. In this Exercise, we compute pascal&rsquo;s Triangle.
+The Question Exercise 1.12: The following pattern of numbers is called Pascals' Triangle.
+The numbers at the edge of the triangle are all 1, and each number inside the triangle is the sum of the two numbers above it. Write a procedure that computes elements of Pascal’s triangle by means of a recursive process.
+My Thoughts When I first did this question, it took some time to crack.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-12/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/examples/example-counting-change/">Example: Counting Change</a>
+  </h1>
+  <time datetime="2020-10-24T00:00:00Z" class="post-date">Sat, Oct 24, 2020</time>
+  In this Example, we write a recursive procedure to calculate the number of possible ways to tend change to a given value.
+The Problem Suppose you have a sum of 1 dollar. Let&rsquo;s say you bought a coffee for 90 cents, and the cafeteria needs to pay you back 10 cents. How do find number of ways to the cafeteria can pay you back your change? One such way is to manually count the possible ways.
+  
+  <div class="read-more-link">
+    <a href="/sicp/examples/example-counting-change/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-10/">Exercise 1.10</a>
+  </h1>
+  <time datetime="2020-10-23T00:00:00Z" class="post-date">Fri, Oct 23, 2020</time>
+  In the 10th exercise, we look at Ackerman&rsquo;s function and give concise mathematical definitions for functions which involve it.
+The Question Exercise 1.10: The following procedure computes a mathematical function called Ackermann’s function.
+(define (A x y) (cond ((= y 0) 0) ((= x 0) (* 2 y)) ((= y 1) 2) (else (A (- x 1) (A x (- y 1)))))) What are the values of the following expressions?
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-10/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-06/">Exercise 1.6</a>
+  </h1>
+  <time datetime="2020-10-22T00:00:00Z" class="post-date">Thu, Oct 22, 2020</time>
+  This the 6th Sicp exercise. This in my opinion is a tricky question which takes a bit of work to figure out. So getting to the matter:
+The Question Exercise 1.6: Alyssa P. Hacker doesn’t see why if needs to be provided as a special form. “Why can’t I just define it as an ordinary procedure in terms of cond?” she asks. Alyssa’s friend Eva Lu Ator claims this can indeed be done, and she defines a new version of if:
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-06/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-07/">Exercise 1.7</a>
+  </h1>
+  <time datetime="2020-10-22T00:00:00Z" class="post-date">Thu, Oct 22, 2020</time>
+  In Ex 1.7, we redefine the good-enough? test from the [Newton&rsquo;s Square roots] (https://benjamin-philip.github.io/sicp/example-newtons-square-root) example inorder to make it compatible will small numbers and very large numbers.
+The Question Exercise 1.7: The good-enough? test used in computing square roots will not be very effective for finding the square roots of very small numbers. Also, in real computers, arithmetic operations are almost always performed with limited precision. This makes our test inadequate for very large numbers.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-07/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-08/">Exercise 1.8</a>
+  </h1>
+  <time datetime="2020-10-22T00:00:00Z" class="post-date">Thu, Oct 22, 2020</time>
+  In this Exercise, we write a procedure for cube roots. But, it is not very different from the square-root procedure.
+The Question Exercise 1.8: Newton’s method for cube roots is based on the fact that if y is an approximation to the cube root of x, then a better approximation is given by the value: $$ \frac{x/y^{2} + 2y}{3} $$
+Use this formula to implement a cube-root procedure analogous to the square-root procedure.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-08/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-09/">Exercise 1.9</a>
+  </h1>
+  <time datetime="2020-10-22T00:00:00Z" class="post-date">Thu, Oct 22, 2020</time>
+  This is the First question in Section to of Chapter one in Sicp. Here we are comparing recursion and iteration.
+The Question **Exercise 1.9:**Each of the following two procedures defines a method for adding two positive integers in terms of the procedures inc, which increments its argument by 1, and dec, which decrements its argument by 1.
+(define (+ a b) (if (= a 0) b (inc (+ (dec a) b)))) (define (+ a b) (if (= a 0) b (+ (dec a) (inc b)))) Using the substitution model, illustrate the process generated by each procedure in evaluating (+ 4 5).
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-09/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/examples/example-newtons-square-root/">Example: Square roots by Newton&#39;s Method</a>
+  </h1>
+  <time datetime="2020-10-20T00:00:00Z" class="post-date">Tue, Oct 20, 2020</time>
+  All the Procedures explained previously were much like ordinary Mathematical functions. However in Mathematics, we are usually concerned with declarative (what is) descriptions. We soon reach issues when deriving procedure from their Mathematical definition. Consider the definition of the Square root:
+$ \sqrt{x} = $ the y such that $ y \geq 0 $ and $ ^{2} = x $
+The above is a perfectly legitimate mathematical function BUT doesn&rsquo;t tell use how to compute the sqrt.
+  
+  <div class="read-more-link">
+    <a href="/sicp/examples/example-newtons-square-root/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-04/">Exercise 1.4</a>
+  </h1>
+  <time datetime="2020-10-20T00:00:00Z" class="post-date">Tue, Oct 20, 2020</time>
+  This the 4th Exercise in SICP
+The Question Exercise 1.4: Observe that our model of evaluation allows for more combinations whose operators are compound expressions. Use this observation to describe the behavior of the following procedure:
+(define (a-plus-abs-b a b) ((if (&gt; b 0) + - ) a b)) The Answer Now in this case, all that is being done is:
+ Check if b is positive or negative And run (+ a b) if b is positive, or run (- a b) if negative.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-04/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-05/">Exercise 1.5</a>
+  </h1>
+  <time datetime="2020-10-20T00:00:00Z" class="post-date">Tue, Oct 20, 2020</time>
+  This is the 5th Exercise of SICP. Here we compare a process when run on a Applicative order interpreter and when run on a Normal-order interpreter.
+The Question Exercise 1.5: Ben Bitdiddle has invented a test to determine whether the interpreter he is faced with is using applicative-order evaluation or normal-order evaluation. He defines the following two procedures:
+(define (p) (p)) (define (test x y) (if (= x 0) 0 y)) Then he evaluates the expression (test 0 (p))
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-05/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-02/">Exercise 1.2</a>
+  </h1>
+  <time datetime="2020-10-14T00:00:00Z" class="post-date">Wed, Oct 14, 2020</time>
+  So getting to the matter: This the second exercise in SICP. It&rsquo;s basically change mathematical notation to prefix.
+Question Exercise 1.2: Translate the following expression into prefix form.
+$$\frac{5 + 4 + (2 - (3 - (6 + \frac{4}{5})))}{3(6 - 2)(2 - 7)}$$
+My thoughts Like I mentioned before, basically, change mathematical notation to prefix.
+The Answer The first thing that happens is the division. So lets start with that:
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-02/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-03/">Exercise 1.3</a>
+  </h1>
+  <time datetime="2020-10-14T00:00:00Z" class="post-date">Wed, Oct 14, 2020</time>
+  This is the third Sicp Exercise, and we finally start writing scheme programs! So without further delay&hellip;
+The Question Exercise 1.3: Define a procedure that takes three numbers as arguments and returns the sum of the squares of the two larger numbers.
+Thoughts So here we will most likely will have to copy the code sum of squares (make copying a habit. Half of what programmers do is copy pasting. The other half is understanding what you are copy-pasting.
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-03/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://bphilip.gitlab.io/sicp/exercises/sicp-ex-1-01/">Exercise 1.1</a>
+  </h1>
+  <time datetime="2020-10-13T00:00:00Z" class="post-date">Tue, Oct 13, 2020</time>
+  So I had just started reading SICP. It’s this amazing book that was used to teach Comp Sc. to students who had never programmed before at MIT. When I thought that I should write a blog post with a solution for every exercise I attempt. So I am gonna write solutions for all the exercise in SICP. My plan is to finish this book in one year.
+You can obtain a copy of SICP for free because of MIT-Open course ware!
+  
+  <div class="read-more-link">
+    <a href="/sicp/exercises/sicp-ex-1-01/">Read More…</a>
+  </div>
+  
+</article>
+</div>
+      </main>
+
+      
+      
+      
+  </body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.19 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.19</h1>
+  <time datetime=2020-11-24T00:00:00Z class="post-date">Tue, Nov 24, 2020</time>
+  <p>Now, this question is not as easy as the last.
+This is the $19^{th}$ from Sicp.</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.19</strong> There is a clever algorithm for computing the Fibonacci
+numbers in a logarithmic number of steps. Recall the transformation of the
+state variables <code>a</code> and <code>b</code> in the <code>fib-iter</code> process of Section 1.2.2:
+$ a \leftarrow a + b $ and $ b \leftarrow a$.  Call this transformation
+$T$ , and observe that applying $T$ over and over again $n$ times,
+starting with 1 and 0, produces the pair Fib( n + 1) and Fib( n ). In
+other words, the Fibonacci numbers are produced by applying $T^{n}$ ,
+the $n^{th}$ power of the transformation $T$ , starting with the pair
+(1, 0). Now consider $T$ to be the special case of $p = 0$ and $q = 1$
+in a family of transformations $T_{pq}$ , where $T_ {pq}$ transforms the
+pair $( a, b )$ according to $a \leftarrow bq + aq + ap$ and $b \leftarrow
+bp + aq$ . Show that if we apply such a transformation $T_{pq}$ twice,
+the effect is the same as using a single transformation $T_ {pq}$ of
+the same form, and compute $p'$ and $q'$ in terms of $p$ and $q$ .
+This gives us an explicit way to square these transformations, and
+thus we can compute $T_{n}$ using successive squaring, as in the fast-expt
+procedure. Put this all together to complete the following procedure,
+which runs in a logarithmic number of steps:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fib</span> n)
+  (<span style="color:#a6e22e">fib-iter</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> n))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fib-iter</span> a b p q count)
+  (<span style="color:#66d9ef">cond </span>((= count <span style="color:#ae81ff">0</span>) b)
+	((even? count)
+	 (<span style="color:#a6e22e">fib-iter</span> a
+		   b
+		   <span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span><span style="color:#75715e">; compute p’</span>
+		   <span style="color:#960050;background-color:#1e0010">〈</span> ?? <span style="color:#960050;background-color:#1e0010">〉</span><span style="color:#75715e">; compute q’</span>
+		   (/ count <span style="color:#ae81ff">2</span>)))
+	(<span style="color:#66d9ef">else </span>(<span style="color:#a6e22e">fib-iter</span> (+ (* b q) (* a q) (* a p))
+			(+ (* b p) (* a q))
+			p
+			q
+			(- count <span style="color:#ae81ff">1</span>)))))
+</code></pre></div><h1 id="the-explanation-not-my-thoughts">The Explanation (not my thoughts)</h1>
+<p>In the previous attempts at the fibonacci sequence, we mostly
+computed it by adding the &ldquo;inducting&rdquo; to the number. With a
+changes like this:</p>
+<p>$a \leftarrow a + b$
+$b \leftarrow a$</p>
+<p>Consider this &ldquo;change&rdquo; to be $T$. $T$ is called a <em>Transformation</em>.
+$T$ will happen <code>n</code> times. In proper notation, it would be $T_{pq}$.
+This means a certain transformation happens on p and q.</p>
+<h2 id="a-different-sytax-for-the-same-thing">A different sytax for the same thing</h2>
+<p>Now consider $T$ to be the special case in  a &ldquo;family&rdquo; of transformations,
+where $ p = 0 $ and $ q = 1$. <code>p</code> and <code>q</code> here are internal variables.
+Do not confuse them with $T_{pq}$.</p>
+<p>Consider this transformation where the pair $(a, b)$ according to the following rules:</p>
+<p>$$
+a \leftarrow bq + aq + ap
+$$</p>
+<p>and</p>
+<p>$$
+b \leftarrow bp + aq
+$$</p>
+<p>A quick substitution shows us that it&rsquo;s essentially the same algorithm:</p>
+<p>$$
+a \leftarrow b(1) + a(1) + a(0) \<br>
+a \leftarrow b + a
+$$</p>
+<p>and</p>
+<p>$$
+b \leftarrow b(0) + a(1)\<br>
+b \leftarrow a
+$$</p>
+<h2 id="what-the-question-means">What the question means</h2>
+<p>The question wants use to find a way to apply 2 Transformations at once.
+This can be used to &ldquo;square&rdquo; the numbers like the previous <code>fast-expt</code>.</p>
+<h1 id="my-thoughts">My Thoughts</h1>
+<p>Now, the reason why variables <code>p</code> and <code>q</code> were introduced is because, using
+the way we compute <code>a</code> and <code>b</code>, we can skip the computation of numbers inbetween
+by applying Transformations on <em><code>p</code> and <code>q</code></em> . Since, we are free to compute <code>p</code>
+and <code>q</code> however we want (There is no hard and fast rule to compute it yet) we
+could possibly use it to change <code>a</code> and <code>b</code> however we want. and when we reach
+count of one, we can take the values of <code>p</code> and <code>q</code> compute this a and b.</p>
+<p>So, what is intended for us to do transform <code>p</code> and <code>q</code>, rather than<code>a</code> and <code>b</code>.
+You must have already deduced by looking at the missing code.</p>
+<p>Now the question is how on Earth do we transform <code>p</code> and <code>q</code> so that
+we can transform to transform <code>a</code> and <code>b</code>.</p>
+<h1 id="how-on-earth-do-we-transform-p-and-q-the-answer">How on Earth do we transform <code>p</code> and <code>q</code> (the answer)</h1>
+<p>Well, (that&rsquo;s <a href="https://forum.wordreference.com/threads/bah-oui-ben-oui.196005/">ben in french</a>), the answer lies with a common enemy - Algebra
+(Or google)</p>
+<p>One thing we can do is study how every iteration of the new algorithm changes.
+So, let&rsquo;s do that. (And remeber we must focus on <code>p</code> and <code>q</code> )</p>
+<p>Let&rsquo;s give the first iteration a value ($a_{1}$, $b_{1}$):</p>
+<p>$$
+a{1} \leftarrow b_{0}q + a_{0}q + a_{0}p \<br>
+b_{1} \leftarrow b_{0}p + a_{0}q
+$$</p>
+<p>We&rsquo;ll just use this to refer to <code>iteration 0</code>.</p>
+<p>Now, we can say that b in <code>iteration 2</code> is the following:</p>
+<p>$$
+\begin{align}
+b_{2} &amp;= b_{1}p + a_{1} \<br>
+&amp;= (b_{0}p + a_{0}q) \times p + (b_{0}p + a_{0}q + a_{0}p) \times q\<br>
+&amp;= b_{0}pp + a_{0}qp + b_{0}pq + a_{0}qq + a_{0}pq\<br>
+&amp;= (b_{0}pp + b_{0}pq) + (2a_{0}pq + a_{0}qq)\<br>
+&amp;= b_{0}(pp + qq) + a_{0}(2pq + qq)\<br>
+\end{align}
+$$</p>
+<p>Compare this with our algorithm :</p>
+<p>$$
+b \leftarrow bp + aq
+$$</p>
+<p>and</p>
+<p>$$
+b_{0}(pp + qq) + a_{0}(2pq + qq)
+$$</p>
+<p>You begin to see the transformation. p is $p^{2} + q^{2}$ and q is $2pq + q^{2}$.</p>
+<h2 id="write-the-scheme-code">Write the scheme code</h2>
+<p>Now to write the scheme</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fib</span> n)
+  (<span style="color:#a6e22e">fib-iter</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span> n))
+  
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fib-iter</span> a b p q count)
+  (<span style="color:#66d9ef">cond </span>((= count <span style="color:#ae81ff">0</span>) b)
+	((even? count)
+	 (<span style="color:#a6e22e">fib-iter</span> a
+		   b
+		   (+ (* p p) (* q q))
+		   (+ (* <span style="color:#ae81ff">2</span> p q) (* q q))
+		   (/ count <span style="color:#ae81ff">2</span>)))
+	(<span style="color:#66d9ef">else </span>(<span style="color:#a6e22e">fib-iter</span> (+ (* b q) (* a q) (* a p))
+			(+ (* b p) (* a q))
+			p
+			q
+			(- count <span style="color:#ae81ff">1</span>)))))
+</code></pre></div><p>A quick check in a REPL gives us the right answers</p>
+<pre><code class="language-slime" data-lang="slime"> =&gt; (fib 2)
+
+;Value: 1
+
+1 (user) =&gt; (fib 100)
+
+;Value: 354224848179261915075
+
+1 (user) =&gt; (fib 4)
+
+;Value: 3
+
+1 (user) =&gt; (fib 2)
+
+;Value: 1
+
+1 (user) =&gt; (fib 3)
+
+;Value: 2
+
+1 (user) =&gt; (fib 4)
+
+;Value: 3
+
+1 (user) =&gt; (fib 5)
+
+;Value: 5
+
+1 (user) =&gt; (fib 10)
+
+;Value: 55
+</code></pre><p>That&rsquo;s it. Hope that helped</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

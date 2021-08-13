@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.13 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.13</h1>
+  <time datetime=2020-10-27T00:00:00Z class="post-date">Tue, Oct 27, 2020</time>
+  <p>This is the 13 exercise in Sicp. Here we prove
+that Fib(n) is equal to varphi divided by root 5.</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 13:</strong> Prove that Fib(<em>n</em>) is the closest integer to $ \varphi^{n}/\sqrt[]{5} $ ,
+where $ \varphi = (1 + \sqrt[]{5})/2 $  Hint : Let $\psi = (1 − \sqrt[]{5})/2$. Use induction
+and the definition of the Fibonacci numbers (see Section 1.2.2) to
+prove that Fib(<em>n</em>) = $(\varphi^{n} − \psi^{n})/\sqrt[]{5}$.</p>
+<h1 id="my-thoughts">My Thoughts</h1>
+<p>We&rsquo;ll use some basic algebra to prove this. Also have a look at the
+definition of the Fibonacci sequence.</p>
+<h1 id="the-answer">The Answer</h1>
+<p>Ok here is some things we know:</p>
+<ul>
+<li>$$ \varphi = 1 + \sqrt[]{5}/2 $$</li>
+<li>$$ \psi = 1 - \sqrt[]{5}/2 $$</li>
+<li>$$ Fib(n) = Fib(n - 1) + Fib(n - 2) $$</li>
+</ul>
+<p>We need to prove the following:</p>
+<ul>
+<li>$$ Fib(n) = (\varphi^{n} − \psi^{n})/\sqrt[]{5} $$</li>
+<li>$$ Fib(n) \approx \frac{\varphi^{n}}{\sqrt[]{5}}$$</li>
+</ul>
+<h2 id="-fibn--varphin--psinsqrt5-">$ Fib(n) = (\varphi^{n} − \psi^{n})/\sqrt[]{5} $</h2>
+<p>So let us first substitute the values with their definitions</p>
+<p>$$
+\begin{align}
+\frac{\varphi^{n} - \psi^{n}}{\sqrt[]{5}} &amp;= \frac{\varphi^{n - 1} - \psi^{n - 1}}{\sqrt[]{5}} + \frac{\varphi^{n - 2} - \psi^{n - 2}}{\sqrt[]{5}} \<br>
+\varphi^{n} - \psi^{n} &amp;= \varphi^{n - 1} - \psi^{n - 1} + \varphi^{n - 2} - \psi^{n - 2} \<br>
+&amp;=\frac{\varphi^{n}}{\varphi} - \frac{\psi^{n}}{\psi} + \frac{\varphi^{n}}{\varphi^{2}} - \frac{\psi^{n}}{\psi^{2}} \<br>
+&amp;=\frac{\varphi^{n}}{\varphi} + \frac{\varphi^{n}}{\varphi^{2}} - \frac{\psi^{n}}{\psi} - \frac{\psi^{n}}{\psi^{2}} \<br>
+&amp;=\varphi^{n}\bigg(\frac{1}{\varphi} + \frac{1}{\varphi^{2}}\bigg) - \psi^{n}\bigg(\frac{1}{\psi} + \frac{1}{\psi^{2}} \bigg)
+\end{align}
+$$</p>
+<p>Looking at this, it will probably occur to you that $\bigg(\frac{1}{\varphi} + \frac{1}{\varphi^{2}}\bigg)$ and $\bigg(\frac{1}{\psi} + \frac{1}{\psi^{2}} \bigg)$
+are equal to one. Let&rsquo;s prove that using the values of $\varphi$ and $\psi$:</p>
+<p>$$
+\begin{align}
+\varphi^{n} - \psi^{n} &amp;= \varphi^{n}\bigg(\frac{1}{(1 + \sqrt[]{5})/2} + \frac{1}{((1 + \sqrt[]{5})/2)^{2}}\bigg) - \psi^{n}\bigg(\frac{1}{(1 - \sqrt[]{5})/2} + \frac{1}{((1 - \sqrt[]{5})/2)^{2}} \bigg) \<br>
+&amp;= \varphi^{n}\bigg(\frac{2}{1 + \sqrt[]{5}} + \frac{4}{(1 + \sqrt[]{5})^{2}}\bigg) - \psi^{n}\bigg(\frac{2}{1 - \sqrt[]{5}} + \frac{4}{(1 - \sqrt[]{5})^{2}} \bigg) \<br>
+&amp;= \varphi^{n}\bigg(\frac{2(1 + \sqrt[]{5})}{(1 + \sqrt[]{5})^{2}} + \frac{4}{(1 + \sqrt[]{5})^{2}}\bigg) - \psi^{n}\bigg(\frac{2(1 - \sqrt[]{5})}{(1 - \sqrt[]{5})^{2}} + \frac{4}{(1 - \sqrt[]{5})^{2}} \bigg) \<br>
+&amp;= \varphi^{n}\bigg(\frac{2(1 + \sqrt[]{5})+ 4}{(1 + \sqrt[]{5})^{2}}\bigg) - \psi^{n}\bigg(\frac{2(1 - \sqrt[]{5}) + 4}{(1 - \sqrt[]{5})^{2}} \bigg) \<br>
+&amp;= \varphi^{n}\bigg(\frac{2 + 2\sqrt[]{5} + 4}{1 + 5 + 2\sqrt[]{5}}\bigg) - \psi^{n}\bigg(\frac{2 + 4 - 2\sqrt[]{5}}{1 + 5 - 2\sqrt[]{5}^{2}} \bigg) \<br>
+&amp;= \varphi^{n}\bigg(\frac{6 + 2\sqrt[]{5}}{6 + 2\sqrt[]{5}}\bigg) - \psi^{n}\bigg(\frac{6 - 2\sqrt[]{5}}{6 - 2\sqrt[]{5}^{2}} \bigg) \<br>
+\varphi^{n} - \psi^{n}&amp;=\varphi^{n} - \psi^{n} \
+\end{align}
+$$</p>
+<p>That is the proof that $ Fib(n) = (\varphi^{n} − \psi^{n})/\sqrt[]{5} $ .</p>
+<p>As you can see, inserting the values, of $\varphi$ and $\psi$ is quite a pain, when it obvious that $\bigg(\frac{1}{\varphi} + \frac{1}{\varphi^{2}}\bigg)$ and $ \bigg(\frac{1}{\psi} + \frac{1}{\psi^{2}} \bigg)$ are equal to one.
+The thing is that this is a formal proof. The thing with formal proofs is that you need to write
+all the steps, and it is often just easier to &ldquo;spend 5 mins in the queue&rdquo; than to &ldquo;spend 20 mins getting around the queue&rdquo;</p>
+<h2 id="-fibn-approx-fracvarphinsqrt5">$ Fib(n) \approx \frac{\varphi^{n}}{\sqrt[]{5}}$</h2>
+<p>We now need to prove that Fib(n) is the closest integer to $\varphi^{n}$.
+Notice that if $\varphi^{n}$ is the closest number to Fib(n), then,
+the difference between the two must always less than or equal to $\frac{1}{2}$.
+So let&rsquo;s re-arrange the equation:</p>
+<p>$$ Fib(n) - \frac{\varphi^{n}}{\sqrt[]{5}} \leq \frac{1}{2} $$</p>
+<p>Look at the previous equation that we proved:</p>
+<p>$$
+\begin{align}
+Fib(n) &amp;= (\varphi^{n} − \psi^{n})/\sqrt[]{5} \<br>
+&amp;= \frac{\varphi^{n}}{\sqrt[]{5}} - \frac{\psi^{n}}{\sqrt[]{5}} \<br>
+Fib(n) - \frac{\varphi^{n}}{\sqrt[]{5}} &amp;= - \frac{\psi^{n}}{\sqrt[]{5}} \<br>
+\end{align}
+$$</p>
+<p>From that we derive that all we need to do is to prove that
+$$ - \frac{\psi^{n}}{\sqrt[]{5}} \leq \frac{1}{2} $$</p>
+<p>Which equals to
+$$ \psi^{n} \leq \frac{\sqrt[]{5}}{2} $$</p>
+<p>A quick evaluation of $\frac{\sqrt[]{5}}{2}$  on the calculator gives us</p>
+<p>$$ 1.1180339 ..$$</p>
+<p>We know that $\psi = -0.618304&hellip;$ and hence we can say
+$$ \psi^{n} &lt; 1 $$</p>
+<p>It soon becomes pretty obvious that
+$$ \psi^{n} \leq \frac{\sqrt[]{5}}{2} $$</p>
+<p>and therefore:</p>
+<h5 id="fibn-is-the-closest-integer-to-fracvarphinsqrt5">Fib(n) is the closest integer to $\frac{\varphi^{n}}{\sqrt[]{5}}$</h5>
+<p><strong>QED</strong></p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

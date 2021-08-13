@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.31 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.31</h1>
+  <time datetime=2021-01-21T00:00:00Z class="post-date">Thu, Jan 21, 2021</time>
+  <p>This is the $31^{th}$ Exercise from Sicp. Here, we define a procedure
+call <code>product</code> analogous to a <code>sum</code>. Using <code>product</code>, we define
+<code>factorial</code> and compute approximations of $\pi$</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.31:</strong><br>
+A) The sum procedure is only the simplest of a vast number of
+similar abstractions that can be captured as higher-order
+procedures. Write an analogous procedure called product
+that returns the product of the values of a function at points
+over a given range. Show how to define factorial in terms of
+product . Also use product to compute approximations to π
+using the formula</p>
+<p>$$ \frac{\pi}{4} = \frac{2 \cdot 4 \cdot 4 \cdot \cdot 6 \cdot 6 \cdot
+8 &hellip;}{3 \cdot 3 \cdot 5 \cdot 5 \cdot 7 \cdot 7 &hellip;} $$</p>
+<p>B) If your <code>product</code> procedure generates a recursive process, write
+one that generates an iterative process. If it generates an iterative
+process, write a recursive process.</p>
+<h1 id="part-b">Part b</h1>
+<p><code>product</code> is basically sum, but instead of summing, we multiply. So
+all we need to do is replace &ldquo;+&rdquo; with &ldquo;*&rdquo; and &ldquo;0&rdquo; with 1.</p>
+<p>The recursive <code>sum</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum</span> term a next b)
+  (<span style="color:#66d9ef">if </span>(&gt; a b)
+      <span style="color:#ae81ff">0</span>
+      (+ (<span style="color:#a6e22e">term</span> a)
+         (<span style="color:#a6e22e">sum</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+</code></pre></div><p>The recursive <code>product</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+  (<span style="color:#66d9ef">if </span>(&gt; a b)
+      <span style="color:#ae81ff">1</span>
+      (* (<span style="color:#a6e22e">term</span> a)
+         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+</code></pre></div><p>The iterative <code>sum</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum</span> term a next b)
+  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">iter</span> a result)
+    (<span style="color:#66d9ef">if </span>(&gt; a b)
+	result
+	(<span style="color:#a6e22e">iter</span> (<span style="color:#a6e22e">next</span> a)(+ result (<span style="color:#a6e22e">term</span> a)))))
+  (<span style="color:#a6e22e">iter</span> a a))
+</code></pre></div><p>The iterative <code>product</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+  (<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">iter</span> a result)
+    (<span style="color:#66d9ef">if </span>(&gt; a b)
+	result
+	(<span style="color:#a6e22e">iter</span> (<span style="color:#a6e22e">next</span> a)(* result (<span style="color:#a6e22e">term</span> a)))))
+  (<span style="color:#a6e22e">iter</span> a a))
+</code></pre></div><h1 id="part-a">Part A</h1>
+<p>Now that we have <code>product</code>, we can define <code>factorial</code> and approximate
+$\pi$.</p>
+<h2 id="factorial"><code>factorial</code></h2>
+<p>Factorial is similar to the <code>sum-integers</code> the authors showed us. It
+is essentially the product of a range of integers as opposed to the sum
+of a range.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+  (<span style="color:#66d9ef">if </span>(&gt; a b)
+      <span style="color:#ae81ff">1</span>
+      (* (<span style="color:#a6e22e">term</span> a)
+         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">1</span>))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">factorial</span> x)
+  (<span style="color:#a6e22e">product</span> id <span style="color:#ae81ff">1</span> inc x))
+</code></pre></div><p>On testing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">factorial</span> <span style="color:#ae81ff">2</span>)
+
+<span style="color:#75715e">;Value: 2</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">factorial</span> <span style="color:#ae81ff">3</span>)
+
+<span style="color:#75715e">;Value: 6</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">factorial</span> <span style="color:#ae81ff">20</span>)
+
+<span style="color:#75715e">;Value: 2432902008176640000</span>
+</code></pre></div><h2 id="aproximating-pi">Aproximating $\pi$</h2>
+<p>This was the formula given to us:</p>
+<p>$$ \frac{\pi}{4} = \frac{2 \cdot 4 \cdot 4 \cdot \cdot 6 \cdot 6 \cdot
+8 &hellip;}{3 \cdot 3 \cdot 5 \cdot 5 \cdot 7 \cdot 7 &hellip;} $$</p>
+<p>We can rewrite it as this:</p>
+<p>$$
+\begin{align}
+\frac{\pi}{4} &amp;= \frac{2 \cdot 4 \cdot 4 \cdot \cdot 6 \cdot 6 \cdot 8 &hellip;}{3 \cdot 3 \cdot 5 \cdot 5 \cdot 7 \cdot 7 &hellip;} \<br>
+\pi &amp;= 4 \times \frac{2 \cdot 4 \cdot 4 \cdot \cdot 6 \cdot 6 \cdot 8 &hellip;}{3 \cdot 3 \cdot 5 \cdot 5 \cdot 7 \cdot 7 &hellip;} \<br>
+&amp;= 4 \times 2 \times \frac{(4 \cdot 6)^{2} \times 8}{(3 \cdot 5 \cdot 7)^{2}} \<br>
+&amp;= 8 \times \frac{(4 \cdot 6)^{2} \times 8}{(3 \cdot 5 \cdot 7)^{2}} \<br>
+\end{align}
+$$</p>
+<h2 id="writing-a-procedure-to-find-the-fraction">Writing a Procedure to find the fraction</h2>
+<p>Now all we need to do is, write a procedure that finds the product of
+a range, incrementing by 2. This is similar to the factorial
+implementation, except that we supply the &ldquo;ending point&rdquo; and we
+increment by 2.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2</span>))
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+  (<span style="color:#66d9ef">if </span>(&gt; a b)
+      <span style="color:#ae81ff">1</span>
+      (* (<span style="color:#a6e22e">term</span> a)
+         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
+  (<span style="color:#a6e22e">product</span> id a inc b))
+</code></pre></div><h3 id="testing-the-above-procedure">Testing the above procedure:</h3>
+<p>Testing the procedure proves that it works prefectly fine:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme"><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">7</span>)
+
+<span style="color:#75715e">;Value: 105</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">8</span>)
+
+<span style="color:#75715e">;Value: 192</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">9</span>)
+
+<span style="color:#75715e">;Value: 945</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">10</span>)
+
+<span style="color:#75715e">;Value: 480</span>
+</code></pre></div><p>However:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme"><span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">10</span>)
+
+<span style="color:#75715e">;Value: 945</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">product-range</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">11</span>)
+
+<span style="color:#75715e">;Value: 3840</span>
+</code></pre></div><p>We can&rsquo;t have odd and even integers together. So our program is not
+foolproof:</p>
+<p>We can however, implement a wrapper to the procedure to deal with this.</p>
+<h3 id="writing-a-wrapper-for-our-procedure">Writing a wrapper for our procedure</h3>
+<p>I chose to favour <code>b</code>. So, if <code>a</code> is of the opposite type, I
+incremented <code>a</code> by 1. This how everything looks like in the end:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2</span>))
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+  (<span style="color:#66d9ef">if </span>(&gt; a b)
+      <span style="color:#ae81ff">1</span>
+      (* (<span style="color:#a6e22e">term</span> a)
+         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
+  (<span style="color:#a6e22e">product</span> id a inc b))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fact-range</span> a b)
+  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(<span style="color:#66d9ef">and </span>(even? a)(even? b))(<span style="color:#66d9ef">and </span>(odd? a)(odd? b)))
+      (<span style="color:#a6e22e">product-range</span> a b)
+      (<span style="color:#a6e22e">product-range</span> (+ a <span style="color:#ae81ff">1</span>) b)))
+</code></pre></div><p>and testing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">4</span>)
+
+<span style="color:#75715e">;Value: 8</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">7</span>)
+
+<span style="color:#75715e">;Value: 105</span>
+</code></pre></div><p>Great! It works!</p>
+<h2 id="writing-a-procedure-to-a-approximate-pi">Writing a procedure to a approximate $\pi$</h2>
+<p>Now that we have a got a script to find the product of a range, we can
+now write a procedure to approximate $\pi$.</p>
+<p>Some things to note before we start:</p>
+<ol>
+<li>
+<p>We need to make to sure the diffrence between <code>a</code> and <code>b</code> in <code>fact-range</code>for
+the denominator is greater than the numerator&rsquo;s diffrence by 2.</p>
+</li>
+<li>
+<p>After finding the square of <code>fact-range</code> we have to multiply the numerator by <code>n</code> (or
+<code>n + 1</code> if odd)</p>
+</li>
+<li>
+<p>We will multiply the numerator by 8.0 so as to avoid scheme
+registering the division as a rational fraction, which may lead to
+some complications (So we are going to get our approximations in
+decimals). <strong>note:</strong> also notice that I have changed all the
+instances of integer to float. This is so that scheme will not have
+to make an integer to float conversion.</p>
+</li>
+<li>
+<p>We will input an integer <code>n</code> from which we will find the range.</p>
+</li>
+</ol>
+<p>Here is the entire script in the end:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2.0</span>))
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+  (<span style="color:#66d9ef">if </span>(&gt; a b)
+      <span style="color:#ae81ff">1.0</span>
+      (* (<span style="color:#a6e22e">term</span> a)
+         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+p
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
+  (<span style="color:#a6e22e">product</span> id a inc b))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fact-range</span> a b)
+  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(<span style="color:#66d9ef">and </span>(even? a)(even? b))(<span style="color:#66d9ef">and </span>(odd? a)(odd? b)))
+      (<span style="color:#a6e22e">product-range</span> a b)
+      (<span style="color:#a6e22e">product-range</span> (+ a <span style="color:#ae81ff">1.0</span>) b)))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">pi</span> n)
+  (/ (* (<span style="color:#a6e22e">square</span>(<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">4</span> (- n <span style="color:#ae81ff">2.0</span>)))
+	<span style="color:#ae81ff">8.0</span>
+	(<span style="color:#66d9ef">if </span>(even? n)
+	    n
+	    (+ n <span style="color:#ae81ff">1.0</span>)))
+   (<span style="color:#a6e22e">square</span> (<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">3</span> (- n <span style="color:#ae81ff">1.0</span>)))))
+</code></pre></div><h3 id="testing">Testing</h3>
+<p>So far it has been great.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ <span style="color:#ae81ff">22.00</span> <span style="color:#ae81ff">7.00</span>) <span style="color:#75715e">;; This is the value of pi</span>
+
+<span style="color:#75715e">;Value: 3.142857142857143</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">10</span>)
+
+<span style="color:#75715e">;Value: 3.3023935500125976</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">100</span>)
+
+<span style="color:#75715e">;Value: 3.1573396892175696</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">150</span>)
+
+<span style="color:#75715e">;Value: 3.1520820239779646</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">170</span>)
+
+<span style="color:#75715e">;Value: 3.1508461800759857</span>
+</code></pre></div><p>However:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">185</span>)
+
+It<span style="color:#e6db74">&#39;s</span> been nice interacting with you!
+Press C-c C-z to bring me back<span style="color:#f92672">.</span>
+</code></pre></div><p>By the time we cross 170, we crash. Though, I am not sure why this is
+happening (probably the float is becoming to large).</p>
+<h2 id="optimizing-pi">Optimizing <code>pi</code></h2>
+<p>Instead of computing the square of both the numerator and denominator
+and then dividing, we can divide and then square, and then multiplying
+by 8.0. We can also replace most of the floats with integers.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">inc</span> x)(+ x <span style="color:#ae81ff">2</span>))
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">id</span> x) x)
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product</span> term a next b)
+  (<span style="color:#66d9ef">if </span>(&gt; a b)
+      <span style="color:#ae81ff">1</span>
+      (* (<span style="color:#a6e22e">term</span> a)
+         (<span style="color:#a6e22e">product</span> term (<span style="color:#a6e22e">next</span> a) next b))))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">product-range</span> a b)
+  (<span style="color:#a6e22e">product</span> id a inc b))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fact-range</span> a b)
+  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(<span style="color:#66d9ef">and </span>(even? a)(even? b))(<span style="color:#66d9ef">and </span>(odd? a)(odd? b)))
+      (<span style="color:#a6e22e">product-range</span> a b)
+      (<span style="color:#a6e22e">product-range</span> (+ a <span style="color:#ae81ff">1</span>) b)))
+
+(<span style="color:#a6e22e">define</span>(<span style="color:#a6e22e">pi</span> n)
+  (* (<span style="color:#a6e22e">square</span> (/ (<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">4</span> (- n <span style="color:#ae81ff">2</span>))
+	      (<span style="color:#a6e22e">fact-range</span> <span style="color:#ae81ff">3</span> (- n <span style="color:#ae81ff">1</span>))))
+	<span style="color:#ae81ff">8.0</span>
+	(<span style="color:#66d9ef">if </span>(even? n)
+	    n
+	    (+ n <span style="color:#ae81ff">1.0</span>))))
+
+</code></pre></div><p>testing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ <span style="color:#ae81ff">22.0</span> <span style="color:#ae81ff">7.0</span>) <span style="color:#75715e">;; This is the value of pi</span>
+
+<span style="color:#75715e">;Value: 3.142857142857143</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">10</span>)
+
+<span style="color:#75715e">;Value: 3.3023935500125976</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">100</span>)
+
+<span style="color:#75715e">;Value: 3.1573396892175656</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">1000</span>)
+
+<span style="color:#75715e">;Value: 3.143163842419198</span>
+
+<span style="color:#ae81ff">1</span> (<span style="color:#a6e22e">user</span>) <span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">pi</span> <span style="color:#ae81ff">100000</span>)
+
+<span style="color:#75715e">;Value: 3.1416083615923305</span>
+</code></pre></div><p>However, too high a value</p>
+<pre><code>1 (user) =&gt; (pi 100000000)
+
+;Aborting!: maximum recursion depth exceeded
+</code></pre><p>If you look carefully, you will notice that the <em><strong>depth</strong></em> has been
+exceeded. This is probably because we use the recursive <code>sum</code>. We
+probably will be able manage higher values with the iterative version
+of <code>sum</code>. (Though is will good long time cause this way of computing
+pi is rather inefficient)</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

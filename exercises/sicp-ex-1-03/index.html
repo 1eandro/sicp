@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.3 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.3</h1>
+  <time datetime=2020-10-14T00:00:00Z class="post-date">Wed, Oct 14, 2020</time>
+  <p>This is the third Sicp Exercise, and we finally start writing scheme programs!
+So without further delay&hellip;</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.3:</strong> Define a procedure that takes three numbers as arguments
+and returns the sum of the squares of the two larger numbers.</p>
+<h1 id="thoughts">Thoughts</h1>
+<p>So here we will most likely will have to copy the code sum of  squares (make copying a habit. Half of what programmers do is copy pasting. The other half is understanding
+what you are copy-pasting.) We will also have to make a test that will take two of the
+largest no.s)</p>
+<h1 id="answers">Answers</h1>
+<p>Let&rsquo;s start programming. Like I mentioned <a href="https://benjamin-philip.github.io/2020-10-13-sicp-ex-1.1">before</a>, You should use Emacs for programming in Lisp.
+I will attach a link to that page when I get my setup ready.</p>
+<h2 id="define-square">Define square</h2>
+<p>Squaring is essentially multiplying a number by itself.
+So let&rsquo;s make that into a function:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sqr</span> x)
+  <span style="color:#75715e">;;x is the numeral to be squared</span>
+  (* x x))
+</code></pre></div><h2 id="define-sum-of-squares">Define sum of squares</h2>
+<p>So now let us make a function that will return the sum of 2 numbers:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum-squares</span> x y)
+  <span style="color:#75715e">;;x is numeral 1 and y numeral 2</span>
+  (+ (<span style="color:#a6e22e">sqr</span> x) (<span style="color:#a6e22e">sqr</span> y)))
+</code></pre></div><h2 id="writing-our-test">Writing our test</h2>
+<p>Now, here comes the annoying bit: Writing the if - else test.
+The simplest way is to write a <code>cond</code> that will deal with all the possibilities
+and do something accordingly. So now make a function that will run <code>sum-squares</code>
+with the right numbers:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">func</span> x y z)
+  <span style="color:#75715e">;;x is numeral 1, y is numeral 2 and z numeral 3</span>
+   (<span style="color:#66d9ef">cond </span>((<span style="color:#66d9ef">and </span>(&gt;= x y) (&gt;= y z)) (<span style="color:#a6e22e">sum-squares</span> x y))
+        ((<span style="color:#66d9ef">and </span>(&gt;= x y) (&gt;= z y)) (<span style="color:#a6e22e">sum-squares</span> x z))
+        ((<span style="color:#66d9ef">and </span>(&gt;= y x) (&gt;= z x)) (<span style="color:#a6e22e">sum-squares</span> z y))))
+</code></pre></div><p>This is the script:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme"><span style="color:#75715e">;;Sicp ex 1.3</span>
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sqr</span> x)
+  <span style="color:#75715e">;;x is the numeral to be squared</span>
+  (* x x))
+
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">sum-squares</span> x y)
+  <span style="color:#75715e">;;x is numeral 1 and y numeral 2</span>
+  (+ (<span style="color:#a6e22e">sqr</span> x) (<span style="color:#a6e22e">sqr</span> y)))
+
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">func</span> x y z)
+  <span style="color:#75715e">;;x is numeral 1, y is numeral 2 and z numeral 3</span>
+  (<span style="color:#66d9ef">cond </span>((<span style="color:#66d9ef">and </span>(&gt;= x y) (&gt;= y z)) (<span style="color:#a6e22e">sum-squares</span> x y))
+        ((<span style="color:#66d9ef">and </span>(&gt;= x y) (&gt;= z y)) (<span style="color:#a6e22e">sum-squares</span> x z))
+        ((<span style="color:#66d9ef">and </span>(&gt;= y x) (&gt;= z x)) (<span style="color:#a6e22e">sum-squares</span> z y))))
+</code></pre></div><p>And now we are done! Running this script in the shell with 4 5 6, we get:</p>
+<pre><code>MIT/GNU Scheme running under GNU/Linux
+Type `^C' (control-C) followed by `H' to obtain information about interrupts.
+
+Copyright (C) 2019 Massachusetts Institute of Technology
+This is free software; see the source for copying conditions. There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Image saved on Thursday September 5, 2019 at 11:51:46 AM
+  Release 10.1.10 || Microcode 15.3 || Runtime 15.7 || SF 4.41 || LIAR/x86-64 4.118
+  ;Loading &quot;ex.scm&quot;... done
+
+1 ]=&gt; (func 4 5 6)
+
+;Value: 61
+</code></pre><p>Well that&rsquo;s right!</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

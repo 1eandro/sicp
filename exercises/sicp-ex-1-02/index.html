@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.2 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.2</h1>
+  <time datetime=2020-10-14T00:00:00Z class="post-date">Wed, Oct 14, 2020</time>
+  <p>So getting to the matter: This the second exercise in SICP.
+It&rsquo;s basically change mathematical notation to prefix.</p>
+<h1 id="question">Question</h1>
+<p><strong>Exercise 1.2:</strong> Translate the following expression into prefix form.</p>
+<p>$$\frac{5 + 4 + (2 - (3 - (6 + \frac{4}{5})))}{3(6 - 2)(2 - 7)}$$</p>
+<h1 id="my-thoughts">My thoughts</h1>
+<p>Like I mentioned before, basically, change mathematical notation to prefix.</p>
+<h1 id="the-answer">The Answer</h1>
+<p>The first thing that happens is the division. So lets start with that:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ numerator denominator)
+</code></pre></div><p>Let&rsquo;s continue with what happens in the numerator:</p>
+<p>That is 5 + 4 + parentheses. So our equation becomes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> ()) denominator)
+</code></pre></div><p>Now what happens in the brackets? 2 - parentheses<br>
+This becomes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> (- <span style="color:#ae81ff">2</span> ()))denominator)
+</code></pre></div><p>Continuing with this cycle, we soon get:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> (- <span style="color:#ae81ff">2</span> (- <span style="color:#ae81ff">3</span> (+ <span style="color:#ae81ff">6</span> (/ <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>))))) denominator)
+</code></pre></div><p>Doing the same for the denominator, we get:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ (+ <span style="color:#ae81ff">5</span> <span style="color:#ae81ff">4</span> (- <span style="color:#ae81ff">2</span> (- <span style="color:#ae81ff">3</span> (+ <span style="color:#ae81ff">6</span> (/ <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>)))))(* <span style="color:#ae81ff">3</span> (- <span style="color:#ae81ff">6</span> <span style="color:#ae81ff">2</span>)(- <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">7</span>)))
+</code></pre></div><p>And that&rsquo;s it! Now that&rsquo;s it! Remember though that you will to have follow
+<a href="https://en.wikipedia.org/wiki/Order_of_operations">BODMAS</a> while translating, and BODMAS is a
+mess! Maybe we should all switch to Prefix or <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">RPN</a>?
+Tell us what you think in the comments below!</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

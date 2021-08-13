@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.18 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.18</h1>
+  <time datetime=2020-11-24T00:00:00Z class="post-date">Tue, Nov 24, 2020</time>
+  <p>This is the $18^{th}$ question in Sicp. And it quite similar
+to the 16th question.</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.18:</strong> Using the results of <a href="https://benjamin-philip.github.io/sicp/sicp-ex-1-16">Exercise 1.16</a> and <a href="https://benjamin-philip.github.io/sicp/sicp-ex-1-17">Exercise 1.17</a>,
+devise a procedure that generates an iterative process for multiplying two intergers in the form
+of adding, doubling, halving, and uses a logarithmic number of steps.</p>
+<h1 id="my-thoughts">My Thoughts</h1>
+<p>This is quite direct. Write an iterative procedure that multiplies in
+a logarithmic number of steps.  A combintation of Exercise 16 and 17.</p>
+<h2 id="the-program-structure">The program structure</h2>
+<p>Look at Ex 17 for more information on the logic of how it works. Also,
+look at Ex 16 for the recursive to iterative logic. Here is the summary.</p>
+<p>Iterative logic:</p>
+<ul>
+<li>We use the variable <code>base</code> to record the value of the multiplicant.</li>
+<li>We use the variable <code>b</code> to record any difference to add at the end.</li>
+<li>We use the variable <code>a</code> to record the change.</li>
+<li>We use the variable <code>n</code> to record the multiplier.</li>
+</ul>
+<p>Procedure logic:</p>
+<ul>
+<li>If <code>n</code> is 1, we return <code>(+ a b)</code>.</li>
+<li>If <code>n</code> is odd, we add base to <code>b</code> and subtract 1 from <code>n</code>.</li>
+<li>If <code>n</code> is even, we double <code>a</code> and halve <code>n</code></li>
+</ul>
+<h1 id="the-answer">The Answer</h1>
+<p>This gives us the following procedure:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">fast-mult</span> b n)
+  (<span style="color:#a6e22e">mult-iter</span> b <span style="color:#ae81ff">1</span> n b))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">mult-iter</span> a b n base)
+  (<span style="color:#66d9ef">cond </span>((= n <span style="color:#ae81ff">1</span>)
+	 (+ a b))
+	((even? n)
+	 (<span style="color:#a6e22e">mult-iter</span> (<span style="color:#a6e22e">double</span> a) b (<span style="color:#a6e22e">halve</span> n) base))
+	(<span style="color:#66d9ef">else </span>(<span style="color:#a6e22e">mult-iter</span> a (+ b base) (- n <span style="color:#ae81ff">1</span>) base))))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">double</span> n)
+  (+ n n))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">halve</span> n)
+  (/ n <span style="color:#ae81ff">2</span>))
+</code></pre></div><p>And that was pretty easy&hellip;</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

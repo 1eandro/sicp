@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.12 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://bphilip.gitlab.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://bphilip.gitlab.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://bphilip.gitlab.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.12</h1>
+  <time datetime=2020-10-25T00:00:00Z class="post-date">Sun, Oct 25, 2020</time>
+  <p>This is the $12^{th}$ exercise in Sicp. In this Exercise,
+we compute pascal&rsquo;s Triangle.</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.12:</strong> The following pattern of numbers is called <em>Pascals' Triangle.</em></p>
+<p><img src="p-tri.gif" alt="Pascal&rsquo;s Triangle "></p>
+<p>The numbers at the edge of the triangle are all 1, and each number
+inside the triangle is the sum of the two numbers above it. Write
+a procedure that computes elements of Pascal’s triangle by means
+of a recursive process.</p>
+<h1 id="my-thoughts">My Thoughts</h1>
+<p>When I first did this question, it took some time
+to crack. So I am gonna try go slowly.</p>
+<p>We need to understand <em>what</em> exactly is the question? Are we supposed
+to compute the whole triangle(i.e to a certain row), or just a row, or just a single element?</p>
+<p>To that I answer that we can&rsquo;t store a <em>list</em> of numbers. So we can&rsquo;t even
+compute a row. To compute the triangle to certain row, we need to manage
+to store the list of lists. However, to compute any of that, we need to be
+able to compute a single element</p>
+<h2 id="how-to-refer-to-a-specific-element">How to refer to a specific element</h2>
+<p>In order to compute an element of pascal&rsquo;s triangle, we need
+to be able to say <em>which</em> element you are talking about. For
+this we will use a notation based on the vertical and horizontal position.</p>
+<p><img src="p-tri-r.gif" alt="Pascal&rsquo;s Triangle"></p>
+<p>Look at that 6. It is the 3rd element in 4th row.
+We will refer to it in our function like this:
+<code>(p 2 4)</code></p>
+<p><strong>Note:</strong> the 3rd element is reffered as the
+2nd element as we start counting from zero</p>
+<h1 id="the-answer">The Answer</h1>
+<p>We can now start solving the problem</p>
+<h2 id="designing-the-recursive-process">Designing the recursive process</h2>
+<p>We know 2 things:</p>
+<ol>
+<li>0th and the nth column is zero.</li>
+<li>An element is the sum of the 2 elements above.</li>
+</ol>
+<p>If you look carefully above, you will notice
+the elements that sum to <code>(p 2 4)</code> are <code>(p 1 3)</code>
+and <code>(p 2 3)</code>. From this we can conclude that
+the two elements are <code>(p (- col 1) (- row 1))</code> and
+<code>(p col (- row 1))</code></p>
+<p>We can now write this in scheme:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">p</span> col row)
+  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(= col <span style="color:#ae81ff">0</span>) (= col row))
+      <span style="color:#ae81ff">1</span>
+      (+ (<span style="color:#a6e22e">p</span> (- col <span style="color:#ae81ff">1</span>) (- row <span style="color:#ae81ff">1</span>) (<span style="color:#a6e22e">p</span> col (- row <span style="color:#ae81ff">1</span>))))))
+</code></pre></div><p>Let&rsquo;s now test it:</p>
+<pre><code>1 ]=&gt; (p 2 4)
+;Value: 6
+</code></pre><p>And that&rsquo;s it! That&rsquo;s all there is to this question.</p>
+<h1 id="going-a-little-further">Going a little further</h1>
+<p>Let&rsquo;s say that we could in fact store an array of
+numbers, and an array of arrays. Could we make a procedure
+that could in fact compute the triangle to a certain row?</p>
+<p>Well the answer is yes. We are programming in lisp, and there
+is bound to be a way to manage lists and iterate through them
+and what not. Lisp after all is short for &ldquo;List - Processing&rdquo;</p>
+<h2 id="managing-rows">Managing rows</h2>
+<p>To make a row, all we need to do is iterate through the range:
+<code>0 - n</code>, append to our list accordingly, and decrease <code>n</code> till it
+is zero.</p>
+<p><strong>Note:</strong> Please don&rsquo;t ask me to explain
+the exact syntax, I just found the appropriate functions
+for processing lists by searching for their list.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row</span> n)
+  (<span style="color:#a6e22e">row-iter</span> <span style="color:#f92672">&#39;</span>() n  n))
+
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row-iter</span> row row-n n)
+  (<span style="color:#66d9ef">if </span>(= n <span style="color:#ae81ff">0</span>)
+      row)
+  (<span style="color:#a6e22e">row-iter</span> (<span style="color:#a6e22e">extend</span> row (<span style="color:#a6e22e">p</span> n row-n)) row-n (- n <span style="color:#ae81ff">1</span>)))
+</code></pre></div><p>We will also have to define <code>extend</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">extend</span> l <span style="color:#f92672">.</span> xs)
+  (<span style="color:#66d9ef">if </span>(null? l)
+      xs
+      (cons (car l) (apply extend (cdr l) xs))))
+</code></pre></div><p>Add this to the end of your code. Let&rsquo;s test it:</p>
+<pre><code>1 ]=&gt; (row 4)
+
+;Value: (1 4 6 4)
+</code></pre><p>Well that&rsquo;s working.</p>
+<h2 id="coefficients">Coefficients</h2>
+<p>If you look at the &ldquo;diagonals&rdquo; in the triangle, you will notice that
+they have a distinct pattern. The 0th one is <code>1 1 1 1 1...</code>
+the 1st is <code>1 2 3 4 5 6 ...</code>. The second is <code>1 3 6 10 15 21 28...</code>
+The third is <code>1 4 10 20 35 56 84...</code> and it goes on.</p>
+<p>The second set are called &ldquo;Triangle numbers&rdquo;. The third set are called
+&ldquo;Tetrahedral&rdquo; Numbers. These numbers can be rather difficult to compute,
+but we can compute them with the help of pascal&rsquo;s triangle. Let&rsquo;s design a method
+for tetrahedral numbers. Look carefully in the above figures. In which cells do these
+sets occur in</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tetra</span> n)
+  (<span style="color:#a6e22e">co-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span> n))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">co-iter</span> list row n count)
+  (<span style="color:#66d9ef">if </span>(= count <span style="color:#ae81ff">0</span>)
+      list
+      (<span style="color:#a6e22e">co-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">p</span> n row)) (+ row <span style="color:#ae81ff">1</span>) (+ n <span style="color:#ae81ff">1</span>) (- count <span style="color:#ae81ff">1</span>) )))
+</code></pre></div><p>Let&rsquo;s test this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme"><span style="color:#ae81ff">1</span> ]<span style="color:#66d9ef">=&gt; </span>(<span style="color:#a6e22e">tetra</span> <span style="color:#ae81ff">6</span>)
+
+<span style="color:#75715e">;Value: (1 3 6 10 15 21)</span>
+</code></pre></div><p>With the help with lamdas, you could make a wrapper script
+for all the possible &ldquo;patterns&rdquo;.</p>
+<h2 id="the-triangle">The Triangle</h2>
+<p>We can now iterate and print all rows to <code>n</code>row.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri</span> n)
+  (<span style="color:#a6e22e">tri-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">1</span> (+ n <span style="color:#ae81ff">1</span>)))
+
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri-iter</span> list n count)
+  (<span style="color:#66d9ef">if </span>(= count n)
+      list
+      (<span style="color:#a6e22e">tri-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">row</span> count)) (+ n <span style="color:#ae81ff">1</span>) count)))
+</code></pre></div><p>and testing:</p>
+<pre><code>1 ]=&gt; (tri 3)
+
+;Value: ((1) (1 2) (1 3 3))
+</code></pre><p>Now that&rsquo;s your triangle. Want to beautify it? Well figure it out yourself!</p>
+<p>Here&rsquo;s the whole scheme file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">p</span> col row)
+  (<span style="color:#66d9ef">if </span>(<span style="color:#66d9ef">or </span>(= col <span style="color:#ae81ff">0</span>) (= col row))
+      <span style="color:#ae81ff">1</span>
+      (+ (<span style="color:#a6e22e">p</span> (- col <span style="color:#ae81ff">1</span>) (- row <span style="color:#ae81ff">1</span>)) (<span style="color:#a6e22e">p</span> col (- row <span style="color:#ae81ff">1</span>)))))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row</span> n)
+  (<span style="color:#a6e22e">row-iter</span> <span style="color:#f92672">&#39;</span>() n  n))
+
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">row-iter</span> row row-n n)
+  (<span style="color:#66d9ef">if </span>(= n <span style="color:#ae81ff">0</span>)
+      row
+      (<span style="color:#a6e22e">row-iter</span> (<span style="color:#a6e22e">extend</span> row (<span style="color:#a6e22e">p</span> n row-n)) row-n (- n <span style="color:#ae81ff">1</span>))))
+
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">extend</span> l <span style="color:#f92672">.</span> xs)
+  (<span style="color:#66d9ef">if </span>(null? l)
+      xs
+      (cons (car l) (apply extend (cdr l) xs))))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tetra</span> n)
+  (<span style="color:#a6e22e">co-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">0</span> n))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">co-iter</span> list row n count)
+  (<span style="color:#66d9ef">if </span>(= count <span style="color:#ae81ff">0</span>)
+      list
+      (<span style="color:#a6e22e">co-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">p</span> n row)) (+ row <span style="color:#ae81ff">1</span>) (+ n <span style="color:#ae81ff">1</span>) (- count <span style="color:#ae81ff">1</span>) )))
+
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri</span> n)
+  (<span style="color:#a6e22e">tri-iter</span> <span style="color:#f92672">`</span>() <span style="color:#ae81ff">1</span> (+ n <span style="color:#ae81ff">1</span>)))
+
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">tri-iter</span> list n count)
+  (<span style="color:#66d9ef">if </span>(= count n)
+      list
+      (<span style="color:#a6e22e">tri-iter</span> (<span style="color:#a6e22e">extend</span> list (<span style="color:#a6e22e">row</span> n)) (+ n <span style="color:#ae81ff">1</span>) count)))
+</code></pre></div>
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>
