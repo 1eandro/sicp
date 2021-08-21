@@ -1,6 +1,6 @@
 ---
 title: Exercise 1.37
-date: 20-08-2021
+date: 2021-08-20
 ---
 
 This is the $37^{th}$ question in SICP. Here we find the value of a continous fraction.

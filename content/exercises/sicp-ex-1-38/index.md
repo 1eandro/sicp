@@ -1,6 +1,6 @@
 ---
 title: Exercise 1.38
-date: 21-08-2021
+date: 2021-08-21
 ---
 
 This is the $38^{th}$ exercise of Sicp. Here we find the value of $e$
