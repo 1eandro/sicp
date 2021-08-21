@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.37 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://benjamin-philip.github.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://benjamin-philip.github.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.37</h1>
+  <time datetime=2021-08-20T00:00:00Z class="post-date">Fri, Aug 20, 2021</time>
+  <p>This is the $37^{th}$ question in SICP. Here we find the value of a continous fraction.</p>
+<h1 id="the-question">The Question</h1>
+<h2 id="part-a">Part A</h2>
+<p>An infinite continued fraction is an expression of the form</p>
+<p>$$
+f = \frac{N_{1}}{D_{1} + \frac{N_{2}}{D_{2} \frac{N_{3}}{D_{3} + &hellip;}}}
+$$</p>
+<p>As an example, one can show that the infinite continued fraction expansion with the $N_{i}$
+and the $D_{i}$ all equal to 1 produces $1/\varphi$ where $\varphi$ is the golden ratio
+(described in Section 1.2.2). One way to approximate an infinite continued fraction is to
+truncate the expansion after a given number of terms. Such a truncation - a so-called
+*k-term finite continued fraction* — has the form</p>
+<p>$$
+\frac{N_{1}}{D_{1} + \frac{N_{2}}{._{._{.}} + \frac{N_{k}}{D_{k}}}}
+$$</p>
+<p>Suppose that <code>n</code> and <code>d</code> are procedures of one argument (the term index $i$) that return
+$N_{i}$ and $D_{i}$ of the terms of the continued fraction. Define a procedure <code>cont-frac</code>
+such that evaluating <code>(cont-frac n d k)</code> computes the value of *k*-term finite continued
+fraction. Check your procedure by approximating $1/\varphi$ using:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">cont-frac</span> (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+           (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+           k)
+</code></pre></div><p>for succesive values of <code>k</code>. How large must you make <code>k</code> in order to get an approximation
+that is accurate to 4 decimal places?</p>
+<h2 id="part-b">Part B</h2>
+<p>If your <code>cont-frac</code> procedure generates a recursive process, write one that generates an
+iterative process. If it generates an iterative process, write one that generates a
+recursive process.</p>
+<h1 id="my-thoughts">My Thoughts</h1>
+<p>I am going to attempt this question part by part. In part A, I will write a recursive procedure.
+In part B, I will write its' iterative equivalent.</p>
+<h2 id="truncating">Truncating</h2>
+<p>We need to find the value of this infinite continued fraction. However, it is not simple to get the
+exact value of the fraction because it is - um, infinite. So, the authors have suggested we truncate
+the fraction.</p>
+<p>What does truncating mean? Assuming we number each instance of the numerator and denominator such
+that they are of the form $N_{i}$ and $D_{i}$, if we stop recursing at instance $k$, it is called
+truncating. In other words, we are stopping at some approximate value, and cutting the fraction
+short.</p>
+<h1 id="the-answer">The Answer</h1>
+<h2 id="part-a-1">Part A</h2>
+<p>Let us start with a <code>cont-frac-reccur</code> this will be called from <code>cont-frac</code>. It will have the the
+params <code>n</code>, <code>d</code>, <code>k</code>, <code>i</code>.</p>
+<p>We know that if <code>i</code> == <code>k</code>, we return the truncated $\frac{N_{k}}{D_{k}}$. However even before we do
+any of that, we need to find the value of <code>n</code> and <code>d</code>. This is simple because the params <code>n</code> and <code>d</code>
+are functions for computing the value of $N_{i}$ and $D_{i}$, with the input of <code>i</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">let </span>((<span style="color:#a6e22e">n-value</span> (<span style="color:#a6e22e">n</span> i))
+      (<span style="color:#a6e22e">d-value</span> (<span style="color:#a6e22e">d</span> i)))
+      <span style="color:#75715e">;; body)</span>
+</code></pre></div><p>Now that we have got the <code>n-value</code> and <code>d-value</code>, we need to decide whether we are truncating or recursing.
+We truncate if <code>i</code> == <code>k</code> and we recurse if not.</p>
+<p>Truncating is the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ n-value d-value)
+</code></pre></div><p>Recursing is the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(/ n-value (+ d-value
+              (<span style="color:#a6e22e">cont-frac-reccur</span> n d k (+ i <span style="color:#ae81ff">1</span>))))
+</code></pre></div><p>Putting this all together, we get the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">cont-frac-reccur</span> n d k i)
+  (<span style="color:#66d9ef">let </span>((<span style="color:#a6e22e">n-value</span> (<span style="color:#a6e22e">n</span> i))
+         (<span style="color:#a6e22e">d-value</span> (<span style="color:#a6e22e">d</span> i)))
+     (<span style="color:#66d9ef">if </span>(= i k)
+       (/ n-value d-value)
+       (/ n-value (+ d-value
+                     (<span style="color:#a6e22e">cont-frac-reccur</span> n d k (+ i <span style="color:#ae81ff">1</span>)))))))
+</code></pre></div><p>Now all we have to do is get <code>cont-frac</code> to call <code>cont-frac-reccur</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">cont-frac</span> n d k)
+  (<span style="color:#a6e22e">cont-frac-reccur</span> n d k <span style="color:#ae81ff">1</span>))
+</code></pre></div><h3 id="testing">Testing</h3>
+<p>The author&rsquo;s have said that a continous fraction where $N_{i}$ and $D_{i}$ are equal to
+the 1, will be equal to $1/\varphi$. We know that $\varphi$ is equal to
+$\frac{1 + \sqrt{5}}{2}$. Thus $1/\varphi$ is the inverse of that: $\frac{2}{1 + \sqrt{5}}$</p>
+<p>A quick division gives 0.618033.</p>
+<p>So, if we try:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">cont-frac</span> (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+           (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+           k)
+</code></pre></div><p>for with a random valu of <code>k</code>, we should get an approximate of 0.618033.</p>
+<p>Trying with <code>k</code> as 5:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">cont-frac</span> (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+  (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+  <span style="color:#ae81ff">5</span>)
+<span style="color:#ae81ff">0.625</span>
+</code></pre></div><p>That is pretty close. Now we know that the procedure is working. We now need
+find the lowest value of <code>k</code> required to get an accurate value of upto 4 decimals,
+i.e 0.6180.</p>
+<p>Trying with 10:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">cont-frac</span> (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+  (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+  <span style="color:#ae81ff">10</span>)
+<span style="color:#ae81ff">0.6179775280898876</span>
+</code></pre></div><p>That is very close. Let me try with 11:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">cont-frac</span> (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+  (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+  <span style="color:#ae81ff">11</span>)
+<span style="color:#ae81ff">0.6180555555555556</span>
+</code></pre></div><p>There&rsquo;s our answer. 11 is the smallest value of <code>k</code> required.</p>
+<h2 id="part-b-1">Part B</h2>
+<p>Now that we have written a recursive procedure, we must write an iterative
+version.</p>
+<p>The first thing we need to understand before we start writing an iterative version
+is that this procedure depends on the <code>k</code> values of <code>n</code> and <code>d</code> in order to evaluate
+any of the &ldquo;higher&rdquo; less than <code>k</code> forms.</p>
+<p>Similarly, in order to computer the <code>i</code> forms, we need to know the values of the <code>i + 1</code>
+forms.</p>
+<p>Bearing this mind, our procedure will have the parameters <code>n</code>, <code>d</code>, <code>i</code> and <code>cur-val</code>.
+We start with $i = k - 1$ and <code>cur-val</code> equal to $\frac{N_{k}}{D_{k}}$. We
+compute n and d-value, if <code>i</code> is equal to 0, we return, else, we compute the <code>i</code>
+form and add call the next iteration adding the computed value.</p>
+<p>This gives us a <code>cont-frac-iter</code> like the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">cont-frac-iter</span> n d i cur-val)
+  (<span style="color:#66d9ef">let </span>((<span style="color:#a6e22e">n-value</span> (<span style="color:#a6e22e">n</span> i))
+        (<span style="color:#a6e22e">d-value</span> (<span style="color:#a6e22e">d</span> i)))
+    (<span style="color:#66d9ef">if </span>(= i <span style="color:#ae81ff">0</span>)
+        cur-val
+        (<span style="color:#a6e22e">cont-frac-iter</span> n d (- i <span style="color:#ae81ff">1</span>)(/ n-value (+ d-value cur-val))))))
+</code></pre></div><p>We need to truncate the fraction to compute the starting value of <code>cur-val</code>
+<code>i</code>, will also have the value of $k - 1$. This gives us the following <code>cont-frac</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">cont-frac</span> n d k)
+  (<span style="color:#a6e22e">cont-frac-iter</span> n d (- k <span style="color:#ae81ff">1</span>)(/ (<span style="color:#a6e22e">n</span> k) (<span style="color:#a6e22e">d</span> k))))
+</code></pre></div><h3 id="testing-1">Testing</h3>
+<p>Testing this in a repl gives the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">cont-frac</span> (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+  (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
+  <span style="color:#ae81ff">10</span>)
+<span style="color:#ae81ff">0.6179775280898876</span>
+</code></pre></div><p>Which is the same value received from the recursive version.</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

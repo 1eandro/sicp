@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.80.0" />
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Exercise 1.38 &middot; Ben&#39;s Solutions to Sicp</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://benjamin-philip.github.io/sicp/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css" integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.js" integrity="sha384-YNHdsYkH6gMx9y3mRkmcJ2mFUjTd0qNQQvY9VYZgQd7DcN7env35GzlmFaZ23JGp" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function() {
+     renderMathInElement(document.body, {
+         
+         
+         delimiters: [
+             {left: '$$', right: '$$', display: true},
+             {left: '$', right: '$', display: false},
+             {left: '\\(', right: '\\)', display: false},
+             {left: '\\[', right: '\\]', display: true}
+         ],
+         
+         throwOnError : false
+     });
+ });
+</script>
+
+
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://benjamin-philip.github.io/sicp/"><h1>Ben&#39;s Solutions to Sicp</h1></a>
+      <p class="lead">
+       My journey reading Sicp: From learning scheme to building an interpreter. 
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://benjamin-philip.github.io/sicp/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2021. All rights reserved. </p>
+  </div>
+</aside>
+
+      <main class="content container">
+          <div class="post">
+  <h1>Exercise 1.38</h1>
+  <time datetime=2021-08-21T00:00:00Z class="post-date">Sat, Aug 21, 2021</time>
+  <p>This is the $38^{th}$ exercise of Sicp. Here we find the value of $e$</p>
+<h1 id="the-question">The Question</h1>
+<p><strong>Exercise 1.38:</strong> In 1737, the Swiss mathematician Leonhard
+Euler published a memoir <em>De Fractionibus Continuis</em>*, which
+included a continued fraction expansion for $e − 2$, where
+$e$ is the base of the natural logarithms. In this fraction, the
+$N_{i}$ are all 1, and the $D_{i}$ are successively 1, 2, 1, 1, 4, 1, 1,
+6, 1, 1, 8, . . .. Write a program that uses your <code>cont-frac</code>
+procedure from Exercise 1.37 to approximate $e$, based on
+Euler’s expansion.</p>
+<h1 id="the-answer">The Answer</h1>
+<p>The above question is a direct application of <code>cont-frac</code>. In order
+to compute $e$ $N_{i} = 1$ and the values of $D_{i}$ are successively
+1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, . . ..</p>
+<p>If you look carefully, after 2, every third number is an even number.
+Infact, if you add their indices by 1 (counting from 1, since <code>i</code> starts from 1),
+and then divide it by three, and then multiply by 2, you get the value of that
+number.</p>
+<p>So we get $D_{i}$ with the following function:</p>
+<p>$$
+d \rightarrow (i + 1) \times \frac{2}{3}
+$$</p>
+<p>Of course that is assuming all indiced when divided by 3 yield an integer.
+If it does not yield and integer, we return 1.</p>
+<p>This would translate to the following in scheme:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">d</span> i)
+  (<span style="color:#66d9ef">let </span>((<span style="color:#a6e22e">by-3</span> (/ (+ i <span style="color:#ae81ff">1</span>) <span style="color:#ae81ff">3</span>)))
+    (<span style="color:#66d9ef">if </span>(integer? by-3)
+        (* <span style="color:#ae81ff">2</span> by-3)
+        <span style="color:#ae81ff">1</span>)))
+</code></pre></div><p>Testing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">&gt; (<span style="color:#a6e22e">d</span> <span style="color:#ae81ff">1</span>)
+<span style="color:#ae81ff">1</span>
+&gt; (<span style="color:#a6e22e">d</span> <span style="color:#ae81ff">2</span>)
+<span style="color:#ae81ff">2</span>
+&gt; (<span style="color:#a6e22e">d</span> <span style="color:#ae81ff">5</span>)
+<span style="color:#ae81ff">4</span>
+&gt; (<span style="color:#a6e22e">d</span> <span style="color:#ae81ff">8</span>)
+<span style="color:#ae81ff">6</span>
+&gt; (<span style="color:#a6e22e">d</span> <span style="color:#ae81ff">11</span>)
+<span style="color:#ae81ff">8</span>
+</code></pre></div><p>Now that we have our function, we now just need to pass it into <code>cont-frac</code>.
+Let&rsquo;s also keep <code>k</code> as 20.</p>
+<p>This would give us the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">d</span> i)
+  (<span style="color:#66d9ef">let </span>((<span style="color:#a6e22e">by-3</span> (/ (+ i <span style="color:#ae81ff">1</span>) <span style="color:#ae81ff">3</span>)))
+    (<span style="color:#66d9ef">if </span>(integer? by-3)
+        (* <span style="color:#ae81ff">2</span> by-3)
+        <span style="color:#ae81ff">1</span>)))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">cont-frac</span> n d k)
+  (<span style="color:#a6e22e">cont-frac-reccur</span> n d k <span style="color:#ae81ff">1</span>))
+
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">cont-frac-reccur</span> n d k i)
+  (<span style="color:#66d9ef">let </span>((<span style="color:#a6e22e">n-value</span> (<span style="color:#a6e22e">n</span> i))
+         (<span style="color:#a6e22e">d-value</span> (<span style="color:#a6e22e">d</span> i)))
+     (<span style="color:#66d9ef">if </span>(= i k)
+          (/ n-value d-value)
+          (/ n-value (+ d-value
+                     (<span style="color:#a6e22e">cont-frac-reccur</span> n d k (+ i <span style="color:#ae81ff">1</span>)))))))
+(<span style="color:#66d9ef">define </span>(<span style="color:#a6e22e">e</span>)
+  (<span style="color:#a6e22e">cont-frac</span> (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>) d <span style="color:#ae81ff">20</span>))
+</code></pre></div><p>and testing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">e</span>)
+<span style="color:#ae81ff">0.7182818284590452</span>
+</code></pre></div><p>That&rsquo;s it!</p>
+
+</div>
+
+
+      </main>
+
+      
+      
+      
+  </body>
+</html>

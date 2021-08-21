@@ -6,7 +6,41 @@
     <description>Recent content on Ben&#39;s Solutions to Sicp</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://benjamin-philip.github.io/sicp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 21 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://benjamin-philip.github.io/sicp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exercise 1.38</title>
+      <link>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-38/</link>
+      <pubDate>Sat, 21 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-38/</guid>
+      <description>This is the $38^{th}$ exercise of Sicp. Here we find the value of $e$
+The Question Exercise 1.38: In 1737, the Swiss mathematician Leonhard Euler published a memoir De Fractionibus Continuis*, which included a continued fraction expansion for $e − 2$, where $e$ is the base of the natural logarithms. In this fraction, the $N_{i}$ are all 1, and the $D_{i}$ are successively 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, .</description>
+    </item>
+    
+    <item>
+      <title>Exercise 1.39</title>
+      <link>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-39/</link>
+      <pubDate>Sat, 21 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-39/</guid>
+      <description>This is the $39^{th}$ exercise in Sicp. In this exercise we write a procedure for tan.
+The Question Exercise 1.39: A continued fraction representation of the tangent function was published in 1770 by the German mathematician J.H. Lambert:
+$$ \tan x = \frac{x}{1 - \frac{x^{2}}{3 - \frac{x^{2}}{5 - &amp;hellip;}}} $$
+where $x$ is in radians. Define a procedure (tan-cf x k) that computes an approximation to the largest tangent function based on Lambert&amp;rsquo;s formula.</description>
+    </item>
+    
+    <item>
+      <title>Exercise 1.37</title>
+      <link>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-37/</link>
+      <pubDate>Fri, 20 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-37/</guid>
+      <description>This is the $37^{th}$ question in SICP. Here we find the value of a continous fraction.
+The Question Part A An infinite continued fraction is an expression of the form
+$$ f = \frac{N_{1}}{D_{1} + \frac{N_{2}}{D_{2} \frac{N_{3}}{D_{3} + &amp;hellip;}}} $$
+As an example, one can show that the infinite continued fraction expansion with the $N_{i}$ and the $D_{i}$ all equal to 1 produces $1/\varphi$ where $\varphi$ is the golden ratio (described in Section 1.</description>
+    </item>
+    
     <item>
       <title>Exercise 1.35</title>
       <link>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-35/</link>
