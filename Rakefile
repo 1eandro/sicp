@@ -17,6 +17,17 @@ task :deploy => [:not_dirty, :build] do
   cp_r FileList['public/*'], '.'
   sh 'git add .'
   sh "git commit -m 'Updated website to #{head}'"
-  sh 'git push'
+  sh 'push git'
   sh 'git checkout master'
+end
+
+desc "Create a new exercise"
+task :new_ex, [:ex] do |t, args|
+  require './lib/new_exercise'
+
+  if args[:ex]
+    NewExercise.new_exercise_from_id args[:ex]
+  else
+    NewExercise.new_exercise
+  end
 end
