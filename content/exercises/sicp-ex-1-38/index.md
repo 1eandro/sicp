@@ -62,7 +62,7 @@ Testing:
 8
 ```
 
-Now that we have our function, we now just need to pass it into `cont-frac`.
+Now that we have our function, we now just need to pass it into `cont-frac` and add 2.
 Let's also keep `k` as 20.
 
 This would give us the following:
@@ -85,14 +85,14 @@ This would give us the following:
           (/ n-value (+ d-value
                      (cont-frac-reccur n d k (+ i 1)))))))
 (define (e)
-  (cont-frac (lambda (i) 1.0) d 20))
+  (+ 2 (cont-frac (lambda (i) 1.0) d 20)))
 ```
 
 and testing:
 
 ```scheme
 (e)
-0.7182818284590452
+2.7182818284590452
 ```
 
 That's it!

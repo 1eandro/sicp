@@ -15,4 +15,4 @@
           (/ n-value (+ d-value
                      (cont-frac-reccur n d k (+ i 1)))))))
 (define (e)
-  (cont-frac (lambda (i) 1.0) d 20))
+  (+ 2 (cont-frac (lambda (i) 1.0) d 20)))
