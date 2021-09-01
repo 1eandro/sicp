@@ -17,7 +17,7 @@ task :deploy => [:not_dirty, :build] do
   cp_r FileList['public/*'], '.'
   sh 'git add .'
   sh "git commit -m 'Updated website to #{head}'"
-  sh 'push git'
+  sh 'git push'
   sh 'git checkout master'
 end
 
