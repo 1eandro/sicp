@@ -1,5 +1,5 @@
 ---
-title: Exercise 1.3
+title: Exercise 1.03
 layout: post
 date:  2020-10-14
 tags: [Sicp, Lisp, Scheme]
@@ -10,7 +10,7 @@ So without further delay...
 
 # The Question
 
-**Exercise 1.3:** Define a procedure that takes three numbers as arguments
+**Exercise 1.03:** Define a procedure that takes three numbers as arguments
 and returns the sum of the squares of the two larger numbers.
 
 # Thoughts

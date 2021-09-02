@@ -1,5 +1,5 @@
 ---
-title: Exercise 1.4
+title: Exercise 1.04
 date:  2020-10-20
 tags: [Lisp, Scheme, SICP]
 ---
@@ -7,7 +7,7 @@ This the 4th Exercise in SICP
 
 # The Question
 
-**Exercise 1.4:** Observe that our model of evaluation allows for 
+**Exercise 1.04:** Observe that our model of evaluation allows for 
 more combinations whose operators are compound expressions. Use this
 observation to describe the behavior of the following procedure:
 

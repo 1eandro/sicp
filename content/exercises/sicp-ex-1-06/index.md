@@ -1,5 +1,5 @@
 ---
-title: Exercise 1.6
+title: Exercise 1.06
 date:  2020-10-22
 ---
 
@@ -9,7 +9,7 @@ So getting to the matter:
 
 # The Question 
 
-**Exercise 1.6:** Alyssa P. Hacker doesn’t see why `if` needs to be
+**Exercise 1.06:** Alyssa P. Hacker doesn’t see why `if` needs to be
 provided as a special form. “Why can’t I just define it as an ordinary
 procedure in terms of cond?” she asks. Alyssa’s friend Eva Lu Ator
 claims this can indeed be done, and she defines a new version of `if`:

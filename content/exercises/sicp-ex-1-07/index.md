@@ -1,5 +1,5 @@
 ---
-title: Exercise 1.7
+title: Exercise 1.07
 date:  2020-10-22
 ---
 
@@ -10,7 +10,7 @@ it compatible will small numbers and very large numbers.
 
 # The Question
 
-**Exercise 1.7:** `The good-enough?` test used in computing square
+**Exercise 1.07:** `The good-enough?` test used in computing square
 roots will not be very effective for finding the square roots of very
 small numbers. Also, in real computers, arithmetic operations are
 almost always performed with limited precision. This makes our

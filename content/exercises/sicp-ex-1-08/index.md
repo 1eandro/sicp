@@ -1,5 +1,5 @@
 ---
-title: Exercise 1.8
+title: Exercise 1.08
 date:  2020-10-22
 ---
 
@@ -8,7 +8,7 @@ But, it is not very different from the square-root procedure.
 
 # The Question
 
-**Exercise 1.8:** Newton’s method for cube roots is based on the fact
+**Exercise 1.08:** Newton’s method for cube roots is based on the fact
 that if y is an approximation to the cube root of x, then a better
 approximation is given by the value:
 $$ \frac{x/y^{2} + 2y}{3} $$  

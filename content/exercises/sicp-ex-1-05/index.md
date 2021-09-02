@@ -1,5 +1,5 @@
 ---
-title: Exercise 1.5
+title: Exercise 1.05
 comments: true
 date:  2020-10-20
 tags: [SICP, Scheme, Lisp]
@@ -11,7 +11,7 @@ a Normal-order interpreter.
 
 # The Question
 
-**Exercise 1.5:** Ben Bitdiddle has invented a test to determine
+**Exercise 1.05:** Ben Bitdiddle has invented a test to determine
 whether the interpreter he is faced with is using applicative-order
 evaluation or normal-order evaluation. He defines the following
 two procedures:

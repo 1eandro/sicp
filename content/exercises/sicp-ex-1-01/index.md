@@ -1,5 +1,5 @@
 ---
-title: Exercise 1.1
+title: Exercise 1.01
 layout: post
 date:  2020-10-13
 tags: [SICP, Lisp, Scheme]
@@ -26,7 +26,7 @@ So without further delay, Let’s get to the exercise
 
 # The Question
 
-**Exercise 1.1:** Below is a sequence of expressions. What is the result
+**Exercise 1.01:** Below is a sequence of expressions. What is the result
 printed by the interpreter in response to each expression? Assume that
 the sequence is to be evaluated in the order in which presented.
 

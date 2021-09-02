@@ -1,5 +1,5 @@
 ---
-title: Exercise 1.2
+title: Exercise 1.02
 layout: post
 date:  2020-10-14
 tags: [SICP, Lisp, Scheme]
@@ -10,7 +10,7 @@ It's basically change mathematical notation to prefix.
 
 # Question
 
-**Exercise 1.2:** Translate the following expression into prefix form.
+**Exercise 1.02:** Translate the following expression into prefix form.
 
 $$\frac{5 + 4 + (2 - (3 - (6 + \frac{4}{5})))}{3(6 - 2)(2 - 7)}$$
 
