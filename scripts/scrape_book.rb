@@ -114,8 +114,7 @@ def get_exercise(node)
   no = nos.last.to_i
 
   section = node.parent.parent.parent
-  section = get_sections(section)
-  section_id = section.first.id
+  section_id = (chap_id * 10) + section.xpath("preceding-sibling::*").size
 
   id = chap_id * 100 + no
 
