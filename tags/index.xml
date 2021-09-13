@@ -5,34 +5,6 @@
     <link>https://benjamin-philip.github.io/sicp/tags/</link>
     <description>Recent content in Tags on Ben&#39;s Solutions to Sicp</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 20 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://benjamin-philip.github.io/sicp/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Lisp</title>
-      <link>https://benjamin-philip.github.io/sicp/tags/lisp/</link>
-      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://benjamin-philip.github.io/sicp/tags/lisp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Scheme</title>
-      <link>https://benjamin-philip.github.io/sicp/tags/scheme/</link>
-      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://benjamin-philip.github.io/sicp/tags/scheme/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SICP</title>
-      <link>https://benjamin-philip.github.io/sicp/tags/sicp/</link>
-      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://benjamin-philip.github.io/sicp/tags/sicp/</guid>
-      <description></description>
-    </item>
-    
+    <language>en-us</language><atom:link href="https://benjamin-philip.github.io/sicp/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
