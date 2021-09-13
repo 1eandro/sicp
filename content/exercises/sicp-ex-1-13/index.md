@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.13
-date:  2020-10-27
+date: 2020-10-27
+weight: 113
+id: 113
 ---
 
 This is the 13 exercise in Sicp. Here we prove

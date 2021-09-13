@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.22
-date:  2020-11-27
+date: 2020-11-27
+weight: 122
+id: 122
 ---
 
 This the 22nd quesion in Sicp. I feel that this question is much more

@@ -1,8 +1,8 @@
 ---
 title: Exercise 1.05
-comments: true
-date:  2020-10-20
-tags: [SICP, Scheme, Lisp]
+date: 2020-10-20
+weight: 105
+id: 105
 ---
 
 This is the 5th Exercise of SICP. Here we compare a process 

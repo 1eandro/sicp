@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.07
-date:  2020-10-22
+date: 2020-10-22
+weight: 107
+id: 107
 ---
 
 In Ex 1.7, we redefine the `good-enough?` test from

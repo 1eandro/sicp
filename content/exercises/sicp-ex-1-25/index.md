@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.25
-date:  2020-12-01
+date: 2020-12-01
+weight: 125
+id: 125
 ---
 
 This is the 25th question from Sicp. I personally find that this

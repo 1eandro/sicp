@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.09
-date:  2020-10-22
+date: 2020-10-22
+weight: 109
+id: 109
 ---
 
 This is the First question in Section to of

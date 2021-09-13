@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.23
-date:  2020-11-30
+date: 2020-11-30
+weight: 123
+id: 123
 ---
 
 This is the 23rd exercise from Sicp.

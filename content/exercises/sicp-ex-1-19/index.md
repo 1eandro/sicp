@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.19
-date:  2020-11-24
+date: 2020-11-24
+weight: 119
+id: 119
 ---
 
 Now, this question is not as easy as the last.

@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.11
-date:  2020-10-25
+date: 2020-10-25
+weight: 111
+id: 111
 ---
 
 This is the $11^{th}$ exercise in Sicp.

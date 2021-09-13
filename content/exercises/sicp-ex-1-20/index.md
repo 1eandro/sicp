@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.20
-date:  2020-11-26
+date: 2020-11-26
+weight: 120
+id: 120
 ---
 
 This is the $20^{th}$ question in Sicp. In general I feel that

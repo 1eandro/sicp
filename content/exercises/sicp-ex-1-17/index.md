@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.17
-date:  2020-11-23
+date: 2020-11-23
+weight: 117
+id: 117
 ---
 
 This is the 17 exercise of Sicp and I am posting after a long time. I

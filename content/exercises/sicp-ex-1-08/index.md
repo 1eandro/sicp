@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.08
-date:  2020-10-22
+date: 2020-10-22
+weight: 108
+id: 108
 ---
 
 In this Exercise, we write a procedure for cube roots.

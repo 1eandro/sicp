@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.24
-date:  2020-12-01
+date: 2020-12-01
+weight: 124
+id: 124
 ---
 
 This is the 24th question from Sicp. And yet again, I feel this is a

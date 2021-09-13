@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.27
-date:  2020-12-02
+date: 2020-12-02
+weight: 127
+id: 127
 ---
 
 This is the 27th question from Sicp. Here we just Run a procedure.

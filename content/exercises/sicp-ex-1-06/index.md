@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.06
-date:  2020-10-22
+date: 2020-10-22
+weight: 106
+id: 106
 ---
 
 This the 6th Sicp exercise. This in my opinion is a 

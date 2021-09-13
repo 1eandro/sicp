@@ -1,8 +1,8 @@
 ---
 title: Exercise 1.02
-layout: post
-date:  2020-10-14
-tags: [SICP, Lisp, Scheme]
+date: 2020-10-14
+weight: 102
+id: 102
 ---
 
 So getting to the matter: This the second exercise in SICP.

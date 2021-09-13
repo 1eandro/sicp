@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.16
-date:  2020-11-12
+date: 2020-11-12
+weight: 116
+id: 116
 ---
 
 This is the 16th Question. Here we design and iterative

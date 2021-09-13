@@ -1,7 +1,8 @@
 ---
 title: Exercise 1.04
-date:  2020-10-20
-tags: [Lisp, Scheme, SICP]
+date: 2020-10-20
+weight: 104
+id: 104
 ---
 This the 4th Exercise in SICP
 

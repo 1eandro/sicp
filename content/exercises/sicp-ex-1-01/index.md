@@ -1,8 +1,8 @@
 ---
 title: Exercise 1.01
-layout: post
-date:  2020-10-13
-tags: [SICP, Lisp, Scheme]
+date: 2020-10-13
+weight: 101
+id: 101
 ---
 
 So I had just started reading SICP. It’s this amazing book that was used

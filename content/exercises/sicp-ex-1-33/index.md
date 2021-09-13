@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.33
-date:  2022-01-21
+date: 2022-01-21
+weight: 133
+id: 133
 ---
 
 This is the $33^{rd}$ exercise from Sicp. Here, we write an even more

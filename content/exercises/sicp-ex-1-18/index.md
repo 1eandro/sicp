@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.18
-date:  2020-11-24
+date: 2020-11-24
+weight: 118
+id: 118
 ---
 
 This is the $18^{th}$ question in Sicp. And it quite similar

@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.39
 date: 2021-08-21
+weight: 139
+id: 139
 ---
 
 This is the $39^{th}$ exercise in Sicp. In this exercise we write a procedure for `tan`.

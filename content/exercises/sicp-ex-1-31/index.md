@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.31
-date:  2021-01-21
+date: 2021-01-21
+weight: 131
+id: 131
 ---
 
 This is the $31^{th}$ Exercise from Sicp. Here, we define a procedure

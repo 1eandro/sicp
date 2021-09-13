@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.10
-date:  2020-10-23
+date: 2020-10-23
+weight: 110
+id: 110
 ---
 
 In the 10th exercise, we look at Ackerman's function

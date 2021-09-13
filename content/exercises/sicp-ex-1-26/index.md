@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.26
-date:  2020-12-02
+date: 2020-12-02
+weight: 126
+id: 126
 ---
 
 This is the 26th Question from Sicp. This question is about Order of

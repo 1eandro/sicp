@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.28
-date:  2020-12-02
+date: 2020-12-02
+weight: 128
+id: 128
 ---
 
 This is the 28th Exercise from Sicp. Here we implement an unfoolable

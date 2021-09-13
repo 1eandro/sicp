@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.21
-date:  2020-11-26
+date: 2020-11-26
+weight: 121
+id: 121
 ---
 
 This is the 21 first question from Sicp and I feel this exercise is

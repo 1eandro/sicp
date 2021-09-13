@@ -1,8 +1,8 @@
 ---
 title: Exercise 1.03
-layout: post
-date:  2020-10-14
-tags: [Sicp, Lisp, Scheme]
+date: 2020-10-14
+weight: 103
+id: 103
 ---
 
 This is the third Sicp Exercise, and we finally start writing scheme programs!

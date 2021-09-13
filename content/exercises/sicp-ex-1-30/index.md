@@ -1,6 +1,8 @@
 ---
 title: Exercise 1.30
-date:  2021-01-20
+date: 2021-01-20
+weight: 130
+id: 130
 ---
 
 This is the $30^{th}$ Exercise from Sicp. Here, we write an iterative
