@@ -51,6 +51,9 @@ module NewExercise
       no = ex[:no]
     end
 
+    id = ex[:id]
+    weight = id
+
     dir_name = "sicp-ex-#{chap}-#{no}"
     template = ERB.new(File.read(TEMPLATE), 0, "%<>")
 
