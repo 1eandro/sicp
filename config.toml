@@ -3,7 +3,5 @@ languageCode = "en-us"
 title = "Ben's Solutions to Sicp"
 theme = "hyde"
 
-disableKinds = ["tags"]
-
 [params]
   description = "My journey reading Sicp: From learning scheme to building an interpreter."
