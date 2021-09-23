@@ -6,7 +6,7 @@
     <description>Recent content on Ben&#39;s Solutions to Sicp</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 21 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://benjamin-philip.github.io/sicp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://benjamin-philip.github.io/sicp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Exercise 1.01</title>
       <link>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-01/</link>
@@ -406,6 +406,41 @@ The Question Exercise 1.38: In 1737, the Swiss mathematician Leonhard Euler publ
 The Question Exercise 1.39: A continued fraction representation of the tangent function was published in 1770 by the German mathematician J.H. Lambert:
 $$ \tan x = \frac{x}{1 - \frac{x^{2}}{3 - \frac{x^{2}}{5 - &amp;hellip;}}} $$
 where $x$ is in radians. Define a procedure (tan-cf x k) that computes an approximation to the largest tangent function based on Lambert&amp;rsquo;s formula.</description>
+    </item>
+    
+    <item>
+      <title>Exercise 1.40</title>
+      <link>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-40/</link>
+      <pubDate>Fri, 17 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-40/</guid>
+      <description>This is the $40^{th}$ question in SICP.
+The Question Exercise 1.40: Define a procedure cubic that can be used together with the newtons-method procedure in expressions of the form:
+(newtons-method (cubic a b c) 1) to approximate zeros of the cubic $x^{3} + ax^{2} + bx + c$.
+The Answer In order to solve this question, we need to understand what exactly is Newton&amp;rsquo;s method.
+Newton&amp;rsquo;s Method In Newton&amp;rsquo;s method, what essentially happens is a fixed point search to find $g(x) = 0$.</description>
+    </item>
+    
+    <item>
+      <title>Exercise 1.41</title>
+      <link>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-41/</link>
+      <pubDate>Wed, 22 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-41/</guid>
+      <description>This is the $41^{th}$ question in SICP.
+The Question Exercise 1.41: Define a procedure double that takes a procedure of one argument as argument and returns a procedure that applies the original procedure twice. For example, if inc is a procedure that adds 1 to its argument, then (double inc) should be a procedure that adds 2. What value is returned by
+(((double (double double)) inc) 5) The Answer double is very simple.</description>
+    </item>
+    
+    <item>
+      <title>Exercise 1.42</title>
+      <link>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-42/</link>
+      <pubDate>Wed, 22 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://benjamin-philip.github.io/sicp/exercises/sicp-ex-1-42/</guid>
+      <description>This is the $42^{th}$ question in SICP.
+The Question Exercise 1.42: Let $f$ and $g$ be two one-argument functions. The composition $f$ after $g$ is defined to be the function $x \mapsto f(g(x))$. Define a procedure compose that implements composition. For example, if inc is a procedure that adds 1 to its argument,
+((compose square inc) 6) 49 The Answer The above proposed compose is similar to the last exercise&amp;rsquo;s double.</description>
     </item>
     
     <item>
