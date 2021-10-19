@@ -83,13 +83,13 @@ $$</p>
 and the $D_{i}$ all equal to 1 produces $1/\varphi$ where $\varphi$ is the golden ratio
 (described in Section 1.2.2). One way to approximate an infinite continued fraction is to
 truncate the expansion after a given number of terms. Such a truncation - a so-called
-*k-term finite continued fraction* — has the form</p>
+<em>k-term finite continued fraction</em> — has the form</p>
 <p>$$
-\frac{N_{1}}{D_{1} + \frac{N_{2}}{._{._{.}} + \frac{N_{k}}{D_{k}}}}
+\frac{N_{1}}{D_{1} + \frac{N_{2}}{.<em>{.</em>{.}} + \frac{N_{k}}{D_{k}}}}
 $$</p>
 <p>Suppose that <code>n</code> and <code>d</code> are procedures of one argument (the term index $i$) that return
 $N_{i}$ and $D_{i}$ of the terms of the continued fraction. Define a procedure <code>cont-frac</code>
-such that evaluating <code>(cont-frac n d k)</code> computes the value of *k*-term finite continued
+such that evaluating <code>(cont-frac n d k)</code> computes the value of <em>k</em>-term finite continued
 fraction. Check your procedure by approximating $1/\varphi$ using:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scheme" data-lang="scheme">(<span style="color:#a6e22e">cont-frac</span> (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
            (<span style="color:#66d9ef">lambda </span>(<span style="color:#a6e22e">i</span>) <span style="color:#ae81ff">1.0</span>)
