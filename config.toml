@@ -2,7 +2,7 @@ baseURL = "https://benjamin-philip.github.io/sicp/"
 languageCode = "en-us"
 title = "Ben's Solutions to Sicp"
 theme = "hyde"
+googleAnalytics = "G-8PFRPH4Y65"
 
 [params]
   description = "My journey reading Sicp: From learning scheme to building an interpreter."
-  googleAnalytics = "G-8PFRPH4Y65"
