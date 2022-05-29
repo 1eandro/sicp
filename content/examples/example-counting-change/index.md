@@ -32,7 +32,7 @@ When you ask for change, say from a shop, you always ask for the
 biggest *denomination*. In the case of the cafeteria, you would
 probably expect a dime as change. If a dime is missing,
 you ask for the next largest denomination i.e a nickel. Now the Cafe owes
-you 10 - 5 dollars i.e 5 dollars. If there's still another nickel, you would take
+you 10 - 5 cents i.e 5 cents. If there's still another nickel, you would take
 it. But if they don't have a nickel, you would have to take 5 pennies. But what if they
 have only pennies? you would have to take 10 pennies then!
 
